@@ -1,0 +1,15 @@
+C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\obj\Debug\Bank_University.csprojAssemblyReference.cache
+C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\obj\Debug\Bank_University.Properties.Resources.resources
+C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\obj\Debug\Bank_University.csproj.GenerateResource.cache
+C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\bin\Debug\Bank_University.exe.config
+C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\bin\Debug\Bank_University.exe
+C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\bin\Debug\Bank_University.pdb
+C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\obj\Debug\Bank_University.exe
+C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\obj\Debug\Bank_University.pdb
+C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\obj\Debug\Bank_University.CreateBankForm.resources
+C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\obj\Debug\Bank_University.BankListForm.resources
+C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\obj\Debug\Bank_University.ChangeBankTitleForm.resources
+C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\obj\Debug\Bank_University.BankMenuForm.resources
+C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\obj\Debug\Bank_University.RegisterForm.resources
+C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\obj\Debug\Bank_University.UserListForm.resources
+C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\obj\Debug\Bank_University.ProfileEditForm.resources
