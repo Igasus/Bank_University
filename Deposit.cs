@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 
 
@@ -7,19 +8,56 @@ namespace Bank_Logic
     public class Deposit
     {
         private string _title = "";
+        private double _annualRate;
+        private int _duration;
 
 
         public Bank Bank { get; private set; }
-        public double AnnualRate { get; private set; }
-        public int Duration { get; set; }
-        public double TotalAccount { get; private set; }
-        public LocalDeposit[] LocalDeposits { get; private set; }
+        public List<LocalDeposit> LocalDeposits { get; private set; }
+
+        // Duration as amount of months of Deposit
+        public int Duration
+        {
+            get => _duration;
+            set
+            {
+                if (value <= 0)
+                    throw new Exception("Duration must be longer than zero months (duration > 0)");
+
+                _duration = value;
+            }
+        }
+
+        // Money multiplier on deposit close 
+        public double AnnualRate
+        {
+            get => _annualRate;
+            set
+            {
+                if (value <= 0)
+                    throw new Exception("Annual rate must be higher than zero (annualRate > 0)");
+
+                _annualRate = value;
+            }
+        }
+
+        // Total amount of money of LocalDeposits
+        public double TotalAccount
+        {
+            get
+            {
+                double result = 0;
+                LocalDeposits.ForEach(deposit => result += deposit.Account );
+
+                return result;
+            }
+        }
 
         // Title must be unique
         public string Title
         {
             get => _title;
-            private set
+            set
             {
                 // Checking if new title is valid
                 if (value == "" || value != value.Split(Bank.BannedSymbols)[0])
@@ -52,7 +90,7 @@ namespace Bank_Logic
             AnnualRate = annualRate;
             Duration = duration;
 
-            LocalDeposits = new LocalDeposit[0];
+            LocalDeposits = new List<LocalDeposit>();
         }
 
 
@@ -60,13 +98,7 @@ namespace Bank_Logic
         // Adding new LocalDeposit to array of child-deposits
         public void AddLocalDeposit(LocalDeposit deposit)
         {
-            LocalDeposit[] temporary = new LocalDeposit[LocalDeposits.Length + 1];
-
-            for (int i = 0; i < LocalDeposits.Length; i++)
-                temporary[i] = LocalDeposits[i];
-            temporary[temporary.Length - 1] = deposit;
-
-            LocalDeposits = temporary;
+            LocalDeposits.Add(deposit);
         }
 
 
@@ -74,7 +106,7 @@ namespace Bank_Logic
         // Finding index of child-deposit array. If array doesn't have needed item returns -1
         public int GetLocalDepositIndex(LocalDeposit deposit)
         {
-            for (int i = 0; i < LocalDeposits.Length; i++)
+            for (int i = 0; i < LocalDeposits.Count; i++)
                 if (deposit.Equals(LocalDeposits[i]))
                     return i;
             return -1;
@@ -82,21 +114,50 @@ namespace Bank_Logic
 
 
 
-        // Removes certain LocalDeposit in array
+        // Removes certain LocalDeposit in LocalDeposits list
+        public void RemoveLocalDeposit(int index)
+        {
+            LocalDeposits.RemoveAt(index);
+        }
+
         public void RemoveLocalDeposit(LocalDeposit deposit)
         {
             int index = GetLocalDepositIndex(deposit);
             if (index == -1)
                 throw new Exception("Local deposit doesn't exist");
 
-            LocalDeposit[] temporary = new LocalDeposit[LocalDeposits.Length - 1];
+            RemoveLocalDeposit(index);
+        }
 
-            for (int i = 0; i < index; i++)
-                temporary[i] = LocalDeposits[i];
-            for (int i = index + 1; i < LocalDeposits.Length; i++)
-                temporary[i - 1] = LocalDeposits[i];
 
-            LocalDeposits = temporary;
+
+        // Removes certain user LocalDeposits from current list
+        public void CloseLocalDeposits(User user)
+        {
+            while (true)
+            {
+                LocalDeposit toCloseDeposit = null;
+                foreach (LocalDeposit deposit in LocalDeposits)
+                    if (deposit.User.Equals(user))
+                    {
+                        toCloseDeposit = deposit;
+                        break;
+                    }
+
+                if (toCloseDeposit == null)
+                    break;
+
+                user.CloseDeposit(toCloseDeposit);
+            }
+        }
+
+
+
+        // Deletes all LocalDeposits
+        public void DeleleAllLocalDeposits()
+        {
+            while (LocalDeposits.Count != 0)
+                LocalDeposits[0].Close();
         }
 
 
@@ -108,6 +169,39 @@ namespace Bank_Logic
             {
                 deposit.Update();
             }
+        }
+
+
+
+        // Searching LocalDeposit by: Username, Account, OpenDate, CloseDate
+        public List<LocalDeposit> SearchLocalDeposits(string toFind)
+        {
+            List<LocalDeposit> resultsByUsername = new List<LocalDeposit>();
+            List<LocalDeposit> resultsByAccount = new List<LocalDeposit>();
+            List<LocalDeposit> resultsByOpenDate = new List<LocalDeposit>();
+            List<LocalDeposit> resultsByCloseDate = new List<LocalDeposit>();
+
+            LocalDeposits.ForEach(deposit => {
+                if (deposit.User.Username.ToLower().Contains(toFind.ToLower()))
+                    resultsByUsername.Add(deposit);
+                else if (String.Format("{0:0.00}", deposit.Account).Contains(toFind))
+                    resultsByAccount.Add(deposit);
+                else if (deposit.OpenDate.ToString().Contains(toFind))
+                    resultsByOpenDate.Add(deposit);
+                else if (deposit.CloseDate.ToString().Contains(toFind))
+                    resultsByCloseDate.Add(deposit);
+            });
+
+            List<LocalDeposit> result = new List<LocalDeposit>(resultsByUsername.Count +
+                                               resultsByAccount.Count +
+                                               resultsByOpenDate.Count +
+                                               resultsByCloseDate.Count);
+            result.AddRange(resultsByUsername);
+            result.AddRange(resultsByAccount);
+            result.AddRange(resultsByOpenDate);
+            result.AddRange(resultsByCloseDate);
+
+            return result;
         }
 
 
@@ -137,7 +231,7 @@ namespace Bank_Logic
             result += $"|- Bank: {Bank.Title} \n";
             result += $"|- AnnualRate: {AnnualRate} \n";
             result += $"|- Duration: {Duration} \n";
-            result += $"|- LocalDeposits.Length: {LocalDeposits.Length} \n";
+            result += $"|- LocalDeposits.Length: {LocalDeposits.Count} \n";
 
             return result;
         }

@@ -41,6 +41,8 @@
             this.AccountColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BirthDateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DepositsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeleteButton = new System.Windows.Forms.Button();
+            this.EditButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.UserGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,7 +56,7 @@
             this.BankTitleLabel.Name = "BankTitleLabel";
             this.BankTitleLabel.Size = new System.Drawing.Size(900, 31);
             this.BankTitleLabel.TabIndex = 1;
-            this.BankTitleLabel.Text = " users";
+            this.BankTitleLabel.Text = "_ users";
             this.BankTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
@@ -79,9 +81,9 @@
             // RegisterButton
             // 
             this.RegisterButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.RegisterButton.Location = new System.Drawing.Point(12, 553);
+            this.RegisterButton.Location = new System.Drawing.Point(168, 553);
             this.RegisterButton.Name = "RegisterButton";
-            this.RegisterButton.Size = new System.Drawing.Size(639, 40);
+            this.RegisterButton.Size = new System.Drawing.Size(432, 40);
             this.RegisterButton.TabIndex = 4;
             this.RegisterButton.Text = "Create new user";
             this.RegisterButton.UseVisualStyleBackColor = true;
@@ -90,9 +92,9 @@
             // BackButton
             // 
             this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.BackButton.Location = new System.Drawing.Point(657, 553);
+            this.BackButton.Location = new System.Drawing.Point(762, 553);
             this.BackButton.Name = "BackButton";
-            this.BackButton.Size = new System.Drawing.Size(255, 40);
+            this.BackButton.Size = new System.Drawing.Size(150, 40);
             this.BackButton.TabIndex = 5;
             this.BackButton.Text = "<-- Back";
             this.BackButton.UseVisualStyleBackColor = true;
@@ -119,6 +121,7 @@
             this.UserGridView.Size = new System.Drawing.Size(900, 468);
             this.UserGridView.TabIndex = 6;
             this.UserGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.UserGridView_CellDoubleClick);
+            this.UserGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.UserGridView_CellMouseClick);
             // 
             // UsernameColumn
             // 
@@ -169,11 +172,37 @@
             this.DepositsColumn.ReadOnly = true;
             this.DepositsColumn.Width = 90;
             // 
+            // DeleteButton
+            // 
+            this.DeleteButton.Enabled = false;
+            this.DeleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.DeleteButton.Location = new System.Drawing.Point(12, 553);
+            this.DeleteButton.Name = "DeleteButton";
+            this.DeleteButton.Size = new System.Drawing.Size(150, 40);
+            this.DeleteButton.TabIndex = 7;
+            this.DeleteButton.Text = "Delete";
+            this.DeleteButton.UseVisualStyleBackColor = true;
+            this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
+            // 
+            // EditButton
+            // 
+            this.EditButton.Enabled = false;
+            this.EditButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.EditButton.Location = new System.Drawing.Point(606, 553);
+            this.EditButton.Name = "EditButton";
+            this.EditButton.Size = new System.Drawing.Size(150, 40);
+            this.EditButton.TabIndex = 8;
+            this.EditButton.Text = "Edit";
+            this.EditButton.UseVisualStyleBackColor = true;
+            this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
+            // 
             // UserListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(924, 605);
+            this.Controls.Add(this.EditButton);
+            this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.UserGridView);
             this.Controls.Add(this.BackButton);
             this.Controls.Add(this.RegisterButton);
@@ -206,5 +235,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn AccountColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn BirthDateColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn DepositsColumn;
+        private System.Windows.Forms.Button DeleteButton;
+        private System.Windows.Forms.Button EditButton;
     }
 }

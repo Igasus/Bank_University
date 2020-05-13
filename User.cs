@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 
 
@@ -14,7 +15,7 @@ namespace Bank_Logic
         public string Surname { get; set; }
         public Date BirthDate { get; set; }
         public Bank Bank { get; private set; }
-        public LocalDeposit[] Deposits { get; private set; }
+        public List<LocalDeposit> Deposits { get; private set; }
 
         // Username must bew Unique in every bank
         public string Username
@@ -88,7 +89,7 @@ namespace Bank_Logic
             Surname = "";
             BirthDate = new Date(1, 1, 1);
 
-            Deposits = new LocalDeposit[0];
+            Deposits = new List<LocalDeposit>();
         }
 
 
@@ -99,29 +100,63 @@ namespace Bank_Logic
             LocalDeposit deposit = new LocalDeposit(parentDeposit, seedCapital, this);
             parentDeposit.AddLocalDeposit(deposit);
 
-            LocalDeposit[] temporary = new LocalDeposit[Deposits.Length + 1];
-            for (int i = 0; i < Deposits.Length; i++)
-                temporary[i] = Deposits[i];
-            temporary[temporary.Length - 1] = deposit;
-
-            Deposits = temporary;
+            Deposits.Add(deposit);
         }
 
 
 
-        // Deletes LocalDeposit with certain index in parent-array
+        // Returns index of certain LocalDeposit in User.Deposits list
+        public int GetLocalDepositIndex(LocalDeposit deposit)
+        {
+            for (int i = 0; i < Deposits.Count; i++)
+                if (deposit.Equals(Deposits[i]))
+                    return i;
+            return -1;
+        }
+
+
+
+        // Removes LocalDepoit from User.Deposits list
+        public void RemoveDeposit(int index)
+        {
+            if (index < 0 || index >= Deposits.Count)
+                throw new Exception($"LocalDeposit with index {index} doesn't exist int list User.Deposits.");
+
+            Deposits.RemoveAt(index);
+        }
+
+        public void RemoveDeposit(LocalDeposit deposit)
+        {
+            int index = GetLocalDepositIndex(deposit);
+
+            if (index == -1)
+                throw new Exception($"User {Username} doesn't have deposit {deposit.Title}");
+
+            RemoveDeposit(index);
+        }
+
+
+
+        // Deletes LocalDeposit from User.Deposits list
         public void CloseDeposit(int index)
         {
-            Deposits[index].ParentDeposit.RemoveLocalDeposit(Deposits[index]);
-            Deposits[index].Withdraw(Deposits[index].Account);
-            LocalDeposit[] temporary = new LocalDeposit[Deposits.Length - 1];
+            if (index < 0 || index >= Deposits.Count)
+                throw new Exception($"LocalDeposit with index {index} doesn't exist int list User.Deposits.");
 
-            for (int i = 0; i < index; i++)
-                temporary[i] = Deposits[i];
-            for (int i = index + 1; i < Deposits.Length; i++)
-                temporary[i - 1] = Deposits[i];
+            LocalDeposit deposit = Deposits[index];
 
-            Deposits = temporary;
+            deposit.Withdraw(deposit.Account);
+            deposit.Remove();
+        }
+
+        public void CloseDeposit(LocalDeposit deposit)
+        {
+            int index = GetLocalDepositIndex(deposit);
+
+            if (index == -1)
+                throw new Exception($"User {Username} doesn't have deposit {deposit.Title}");
+
+            CloseDeposit(index);
         }
 
 
@@ -143,6 +178,39 @@ namespace Bank_Logic
         public void TransferMoney(User user, double amountOfMoney)
         {
             Bank.TransferMoney(this, user, amountOfMoney);
+        }
+
+
+
+        // Searching LocalDeposit by: Username, Account, OpenDate, CloseDate
+        public List<LocalDeposit> SearchLocalDeposits(string toFind)
+        {
+            List<LocalDeposit> resultsByUsername = new List<LocalDeposit>();
+            List<LocalDeposit> resultsByAccount = new List<LocalDeposit>();
+            List<LocalDeposit> resultsByOpenDate = new List<LocalDeposit>();
+            List<LocalDeposit> resultsByCloseDate = new List<LocalDeposit>();
+
+            Deposits.ForEach(deposit => {
+                if (deposit.User.Username.ToLower().Contains(toFind.ToLower()))
+                    resultsByUsername.Add(deposit);
+                else if (String.Format("{0:0.00}", deposit.Account).Contains(toFind))
+                    resultsByAccount.Add(deposit);
+                else if (deposit.OpenDate.ToString().Contains(toFind))
+                    resultsByOpenDate.Add(deposit);
+                else if (deposit.CloseDate.ToString().Contains(toFind))
+                    resultsByCloseDate.Add(deposit);
+            });
+
+            List<LocalDeposit> result = new List<LocalDeposit>(resultsByUsername.Count +
+                                               resultsByAccount.Count +
+                                               resultsByOpenDate.Count +
+                                               resultsByCloseDate.Count);
+            result.AddRange(resultsByUsername);
+            result.AddRange(resultsByAccount);
+            result.AddRange(resultsByOpenDate);
+            result.AddRange(resultsByCloseDate);
+
+            return result;
         }
 
 

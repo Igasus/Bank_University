@@ -80,11 +80,74 @@ namespace Bank_Logic
 
 
 
+        // Returns index of User in Users list
+        public int GetUserIndex(User user)
+        {
+            for (int i = 0; i < Users.Count; i++)
+                if (user.Equals(Users[i]))
+                    return i;
+            return -1;
+        }
+
+
+
+        // Deletes User from Bank
+        public void DeleteUser(int index)
+        {
+            if (index < 0 || index >= Users.Count)
+                throw new Exception($"Users list length is {Users.Count}, doesn't exit user with index {index}");
+
+            Deposits.ForEach(deposit => deposit.CloseLocalDeposits(Users[index]));
+            Users.RemoveAt(index);
+        }
+
+        public void DeleteUser(User user)
+        {
+            int userIndex = GetUserIndex(user);
+
+            if (userIndex == -1)
+                throw new Exception($"User '{user.Username}' doesn't exist in Bank '{Title}'");
+
+            DeleteUser(userIndex);
+        }
+
+
+
+        // Returns index of certain deposit in Deposits list
+        public int GetDepositIndex(Deposit deposit)
+        {
+            for (int i = 0; i < Deposits.Count; i++)
+                if (deposit.Equals(Deposits[i]))
+                    return i;
+            return -1;
+        }
+
+
+
         // Creates new bank Deposit
         public void CreateDeposit(Bank bank, string title, double annualRate, int duration)
         {
             Deposit deposit = new Deposit(bank, title, annualRate, duration);
             Deposits.Add(deposit);
+        }
+
+
+
+        // Deletes certain Deposit
+        public void DeleteDeposit(int index)
+        {
+            Deposits[index].DeleleAllLocalDeposits();
+            Deposits.RemoveAt(index);
+        }
+
+        public void DeleteDeposit(Deposit deposit)
+        {
+            int index = GetDepositIndex(deposit);
+
+            if (index == -1)
+                throw new Exception($"Bank '{Title}' doesn't have Deposit '{deposit.Title}'");
+
+            DeleteDeposit(index);
         }
 
 
@@ -102,7 +165,7 @@ namespace Bank_Logic
 
 
         // Searching User by: Username, Name, Surname
-        public List<User> Search(string toFind)
+        public List<User> SearchUsers(string toFind)
         {
             List<User> resultsByUsername = new List<User>();
             List<User> resultsByName = new List<User>();
@@ -125,6 +188,61 @@ namespace Bank_Logic
             result.AddRange(resultsBySurname);
 
             return result;
+        }
+
+
+
+        // Searching Deposit by: Title, AnnualRate, Duration, TotalAccount
+        public List<Deposit> SearchDeposits(string toFind)
+        {
+            List<Deposit> resultsByTitle = new List<Deposit>();
+            List<Deposit> resultsByAnnualRate = new List<Deposit>();
+            List<Deposit> resultsByDuration = new List<Deposit>();
+            List<Deposit> resultsByTotalAccount = new List<Deposit>();
+
+            Deposits.ForEach(deposit => {
+                if (deposit.Title.ToLower().Contains(toFind.ToLower()))
+                    resultsByTitle.Add(deposit);
+                else if (String.Format("{0:0.00}", deposit.AnnualRate * 100).Contains(toFind))
+                    resultsByAnnualRate.Add(deposit);
+                else if (deposit.Duration.ToString().Contains(toFind))
+                    resultsByDuration.Add(deposit);
+                else if (String.Format("{0:0.00}", deposit.TotalAccount).Contains(toFind))
+                    resultsByTotalAccount.Add(deposit);
+            });
+
+            List<Deposit> result = new List<Deposit>(resultsByTitle.Count +
+                                               resultsByAnnualRate.Count +
+                                               resultsByDuration.Count + 
+                                               resultsByTotalAccount.Count);
+            result.AddRange(resultsByTitle);
+            result.AddRange(resultsByAnnualRate);
+            result.AddRange(resultsByDuration);
+            result.AddRange(resultsByTotalAccount);
+
+            return result;
+        }
+
+
+
+        // Finds User by User.Username
+        public User FindUser(string username)
+        {
+            foreach (User user in Users)
+                if (username == user.Username)
+                    return user;
+            throw new Exception($"User with username '{username}' doesn't exist");
+        }
+
+
+
+        // Finds Deposit by Deposit.Title
+        public Deposit FindDeposit(string title)
+        {
+            foreach (Deposit deposit in Deposits)
+                if (title == deposit.Title)
+                    return deposit;
+            throw new Exception($"Deposit with title '{title}' doesn't exist");
         }
 
 

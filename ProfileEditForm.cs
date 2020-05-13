@@ -32,19 +32,7 @@ namespace Bank_University
             _user = user;
             _previousForm = previousForm;
 
-            OldUsernameTextBox.Text = _user.Username;
-            OldPasswordTextBox.Text = _user.Password;
-            OldNameTextBox.Text = _user.Name;
-            OldSurnameTextBox.Text = _user.Surname;
-            OldAccountTextBox.Text = String.Format("{0:0.00}", _user.Account);
-            OldBirthDateTextBox.Text = _user.BirthDate.ToString();
-
-            NewUsernameTextBox.Text = _user.Username;
-            NewPasswordTextBox.Text = _user.Password;
-            NewNameTextBox.Text = _user.Name;
-            NewSurnameTextBox.Text = _user.Surname;
-            NewAccountTextBox.Text = String.Format("{0:0.00}", _user.Account);
-            NewBirthDateTextBox.Text = _user.BirthDate.ToString();
+            UpdateInfo();
         }
 
 
@@ -82,7 +70,8 @@ namespace Bank_University
 
         private void DepositButton_Click(object sender, EventArgs e)
         {
-
+            LocalDepositListForm form = new LocalDepositListForm(_user.Deposits, this, user: _user);
+            form.ShowDialog();
         }
 
         
@@ -92,14 +81,17 @@ namespace Bank_University
             try
             {
                 string[] date = NewBirthDateTextBox.Text.Split('.');
-                if (date.Length != 3)
+
+                if (date.Length != 3 || date[0].Length != 2 || date[1].Length != 2 || date[2].Length != 4)
                     return;
 
                 int day = Convert.ToInt32(date[0]);
                 int month = Convert.ToInt32(date[1]);
                 int year = Convert.ToInt32(date[2]);
 
-                DateTime calendarDate = Convert.ToDateTime($"{day}/{month}/{year}");
+                Date correctDate = new Date(day, month, year);
+
+                DateTime calendarDate = Convert.ToDateTime($"{correctDate.Day}/{correctDate.Month}/{correctDate.Year}");
                 BirthDateCalendar.SetDate(calendarDate);
             }
             catch (Exception) { }
@@ -117,6 +109,25 @@ namespace Bank_University
                 NewBirthDateTextBox.Text = date;
             }
             catch (Exception) { }
+        }
+
+
+
+        public void UpdateInfo()
+        {
+            OldUsernameTextBox.Text = _user.Username;
+            OldPasswordTextBox.Text = _user.Password;
+            OldNameTextBox.Text = _user.Name;
+            OldSurnameTextBox.Text = _user.Surname;
+            OldAccountTextBox.Text = String.Format("{0:0.00}", _user.Account);
+            OldBirthDateTextBox.Text = _user.BirthDate.ToString();
+
+            NewUsernameTextBox.Text = _user.Username;
+            NewPasswordTextBox.Text = _user.Password;
+            NewNameTextBox.Text = _user.Name;
+            NewSurnameTextBox.Text = _user.Surname;
+            NewAccountTextBox.Text = String.Format("{0:0.00}", _user.Account);
+            NewBirthDateTextBox.Text = _user.BirthDate.ToString();
         }
 
 

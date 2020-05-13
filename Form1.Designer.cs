@@ -57,6 +57,7 @@
             this.BankListBox.Size = new System.Drawing.Size(667, 376);
             this.BankListBox.TabIndex = 1;
             this.BankListBox.SelectedIndexChanged += new System.EventHandler(this.BankListBox_SelectedIndexChanged);
+            this.BankListBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.BankListBox_MouseDoubleClick);
             // 
             // CreateBankButton
             // 

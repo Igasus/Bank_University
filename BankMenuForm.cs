@@ -82,7 +82,9 @@ namespace Bank_University
 
         private void DepositsButton_Click(object sender, EventArgs e)
         {
-
+            DepositListForm depositsForm = new DepositListForm(Bank, this);
+            Hide();
+            depositsForm.Show();
         }
     }
 }

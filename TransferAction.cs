@@ -4,7 +4,8 @@
     public enum TransferType
     {
         REPLENISH,
-        WITHDRAW
+        WITHDRAW,
+        DEPOSIT
     }
 
 
@@ -41,6 +42,9 @@
                     break;
                 case TransferType.REPLENISH:
                     result = "REPLENISH";
+                    break;
+                case TransferType.DEPOSIT:
+                    result = "DEPOSIT";
                     break;
             }
 

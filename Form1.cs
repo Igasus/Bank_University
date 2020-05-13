@@ -19,8 +19,10 @@ namespace Bank_University
 
         public BankListForm()
         {
-            SelectedBank = null;
             InitializeComponent();
+
+            SelectedBank = null;
+            UpdateBankList();
         }
 
 
@@ -36,7 +38,7 @@ namespace Bank_University
         {
             BankListBox.Items.Clear();
             for (int i = 0; i < Bank.Banks.Count; i++)
-                BankListBox.Items.Insert(i, Bank.Banks[i]);
+                BankListBox.Items.Insert(i, Bank.Banks[i].Title);
         }
 
 
@@ -70,11 +72,18 @@ namespace Bank_University
 
 
 
-        private void OpenBankButton_Click(object sender, EventArgs e)
+        private void OpenBankMenu(Bank bank)
         {
             BankMenuForm bankMenu = new BankMenuForm(SelectedBank, this);
             Hide();
             bankMenu.Show();
+        }
+
+
+
+        private void OpenBankButton_Click(object sender, EventArgs e)
+        {
+            OpenBankMenu(SelectedBank);
         }
 
 
@@ -100,6 +109,14 @@ namespace Bank_University
             Bank.Banks.Remove(SelectedBank);
             Program.StartForm.UpdateBankList();
             UpdateButtons();
+        }
+
+        private void BankListBox_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (SelectedBank == null)
+                return;
+
+            OpenBankMenu(SelectedBank);
         }
     }
 }

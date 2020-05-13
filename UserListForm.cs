@@ -47,9 +47,9 @@ namespace Bank_University
                     user.Password,
                     user.Name,
                     user.Surname,
-                    user.Account.ToString(),
+                    String.Format("{0:0.00}", user.Account),
                     user.BirthDate.ToString(),
-                    user.Deposits.Length.ToString()
+                    user.Deposits.Count.ToString()
                 };
                 UserGridView.Rows.Add(row);
             });
@@ -90,10 +90,11 @@ namespace Bank_University
 
         private void SearchTextBox_TextChanged(object sender, EventArgs e)
         {
+            DeleteButton.Enabled = false;
             string toFind = SearchTextBox.Text;
             if (toFind != "")
             {
-                List<User> result = Bank.Search(toFind);
+                List<User> result = Bank.SearchUsers(toFind);
                 SetUserGrid(result);
             }
             else
@@ -102,13 +103,23 @@ namespace Bank_University
 
 
 
+        private void OpenEditForm(User user)
+        {
+            ProfileEditForm profileForm = new ProfileEditForm(user, this);
+            profileForm.ShowDialog();
+        }
+
+
+
         private void UserGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            int rowIndex = UserGridView.CurrentRow.Index;
-            User selectedUser = _currentUsers[rowIndex];
+            DataGridViewRow currentRow = UserGridView.CurrentRow;
             
-            ProfileEditForm profileForm = new ProfileEditForm(selectedUser, this);
-            profileForm.ShowDialog();
+            if (currentRow == null || currentRow.Index < 0 && currentRow.Index >= _currentUsers.Count)
+                return;
+            User selectedUser = _currentUsers[currentRow.Index];
+
+            OpenEditForm(selectedUser);
         }
 
 
@@ -116,7 +127,47 @@ namespace Bank_University
         public void UpdateInfo()
         {
             SearchTextBox.Text = "";
+            DeleteButton.Enabled = false;
+            EditButton.Enabled = false;
             UpdateUserGrid();
+        }
+
+
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            int rowIndex = UserGridView.CurrentRow.Index;
+            User user = _currentUsers[rowIndex];
+            Bank.DeleteUser(user);
+            UpdateInfo();
+        }
+
+
+
+        private void UserGridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridViewRow currentRow = UserGridView.CurrentRow;
+
+            if (currentRow == null || currentRow.Index < 0 && currentRow.Index >= _currentUsers.Count)
+            {
+                DeleteButton.Enabled = false;
+                EditButton.Enabled = false;
+            }
+            else
+            {
+                DeleteButton.Enabled = true;
+                EditButton.Enabled = true;
+            }
+        }
+
+
+
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+            int rowIndex = UserGridView.CurrentRow.Index;
+            User selectedUser = _currentUsers[rowIndex];
+
+            OpenEditForm(selectedUser);
         }
     }
 }

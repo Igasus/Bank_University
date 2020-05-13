@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\igasu\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\igasu\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_Bank_University.-1999138186.00" t="ExcludeRecursive" />
+    <e p="C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University" t="IncludeRecursive">
+      <e p="App.config" t="Include" />
+      <e p="Bank.cs" t="Include" />
+      <e p="Bank_University.csproj" t="IncludeRecursive" />
+      <e p="Bank_University.sln" t="IncludeFlat" />
+      <e p="BankMenuForm.cs" t="Include" />
+      <e p="BankMenuForm.Designer.cs" t="Include" />
+      <e p="BankMenuForm.resx" t="Include" />
+      <e p="bin" t="ExcludeRecursive" />
+      <e p="ChangeBankTitleForm.cs" t="Include" />
+      <e p="ChangeBankTitleForm.Designer.cs" t="Include" />
+      <e p="ChangeBankTitleForm.resx" t="Include" />
+      <e p="CreateBankForm.cs" t="Include" />
+      <e p="CreateBankForm.Designer.cs" t="Include" />
+      <e p="CreateBankForm.resx" t="Include" />
+      <e p="CustomThread.cs" t="Include" />
+      <e p="Date.cs" t="Include" />
+      <e p="Deposit.cs" t="Include" />
+      <e p="Form1.cs" t="Include" />
+      <e p="Form1.Designer.cs" t="Include" />
+      <e p="Form1.resx" t="Include" />
+      <e p="LocalDeposit.cs" t="Include" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="packages.config" t="Include" />
+      <e p="ProfileEditForm.cs" t="Include" />
+      <e p="ProfileEditForm.Designer.cs" t="Include" />
+      <e p="ProfileEditForm.resx" t="Include" />
+      <e p="Program.cs" t="Include" />
+      <e p="Properties" t="Include">
+        <e p="AssemblyInfo.cs" t="Include" />
+        <e p="Resources.Designer.cs" t="Include" />
+        <e p="Resources.resx" t="Include" />
+        <e p="Settings.Designer.cs" t="Include" />
+        <e p="Settings.settings" t="Include" />
+      </e>
+      <e p="RegisterForm.cs" t="Include" />
+      <e p="RegisterForm.Designer.cs" t="Include" />
+      <e p="RegisterForm.resx" t="Include" />
+      <e p="TransferAction.cs" t="Include" />
+      <e p="User.cs" t="Include" />
+      <e p="UserListForm.cs" t="Include" />
+      <e p="UserListForm.Designer.cs" t="Include" />
+      <e p="UserListForm.resx" t="Include" />
+    </e>
+  </component>
+</project>
