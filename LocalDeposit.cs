@@ -33,6 +33,11 @@ namespace Bank_Logic
 
 
 
+        // Private "empty" constructor for deserialization
+        private LocalDeposit() { }
+
+
+
         // Setting LocalDeposit info, replenish SeedCapital
         public LocalDeposit(Deposit parentDeposit, double seedCapital, User user)
         {
@@ -182,6 +187,42 @@ namespace Bank_Logic
                 result += $"   |- {action.Date}: {action.GetStringType()}. AmountOfMoney: {action.AmountOfMoney} \n";
 
             return result;
+        }
+
+
+
+        //-----Static--class--members---------------------------------
+
+
+
+        // Converts SerializationUser object to User object
+        static public void LinkObject(Bank bank, SerializationLocalDeposit serializationLocalDeposit)
+        {
+            string toFindUsername = serializationLocalDeposit.User;
+            string toFindTitle = serializationLocalDeposit.ParentDeposit;
+
+            User user = bank.FindUser(toFindUsername);
+            Deposit deposit = bank.FindDeposit(toFindTitle);
+
+            LocalDeposit localDeposit = new LocalDeposit();
+            localDeposit.User = user;
+            localDeposit.ParentDeposit = deposit;
+            localDeposit.Account = serializationLocalDeposit.Account;
+            localDeposit.OpenDate = Date.Deserialize(serializationLocalDeposit.OpenDate);
+
+            localDeposit.History = new List<TransferAction>();
+            foreach (string transferActionJson in serializationLocalDeposit.History)
+            {
+                SerializationTransferAction serializationTransferAction =
+                    SerializationTransferAction.Deserialize(transferActionJson);
+
+                TransferAction transferAction = TransferAction.GetObject(serializationTransferAction);
+
+                localDeposit.History.Add(transferAction);
+            }
+
+            user.LinkLocalDeposit(localDeposit);
+            deposit.LinkLocalDeposit(localDeposit);
         }
     }
 }

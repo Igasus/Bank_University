@@ -79,5 +79,31 @@ namespace Bank_Logic
 
             return result;
         }
+
+
+
+        //-----Static--class--members---------------------------------
+
+
+
+        // Converts SerializationTransferAction object to TransferAction object
+        static public TransferAction GetObject(SerializationTransferAction serializationTransferAction)
+        {
+            string transferTypeString = serializationTransferAction.TransferType;
+            string dateJson = serializationTransferAction.Date;
+
+            TransferType transferType = TransferType.DEPOSIT;
+            if (transferTypeString == "REPLENISH")
+                transferType = TransferType.REPLENISH;
+            else if (transferTypeString == "WITHDRAW")
+                transferType = TransferType.WITHDRAW;
+
+            Date date = Date.Deserialize(dateJson);
+            double amountOfMoney = serializationTransferAction.AmountOfMoney;
+
+            TransferAction transferAction = new TransferAction(date, transferType, amountOfMoney);
+
+            return transferAction;
+        }
     }
 }

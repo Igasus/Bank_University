@@ -27,6 +27,7 @@ namespace Bank_University
         public void UpdateInfo()
         {
             CurrentDateTextBox.Text = Date.CurrentDate.ToString();
+            CurrentSpeedTextBox.Text = Date.SecondsPerDay.ToString() + " sec/day";
         }
 
 
@@ -72,9 +73,13 @@ namespace Bank_University
         {
             try {
                 string[] date = NewDateTextBox.Text.Split('.');
-                Date.CurrentDate.SetDate(Convert.ToInt32(date[0]),
+                Date newDate = new Date(Convert.ToInt32(date[0]),
                                         Convert.ToInt32(date[1]),
                                         Convert.ToInt32(date[2]));
+                if (newDate < Date.CurrentDate)
+                    throw new Exception("Unable to set current date less than it was.");
+
+                Date.CurrentDate.SetDate(newDate);
             }
             catch (Exception exception)
             {
@@ -94,6 +99,22 @@ namespace Bank_University
         private void DateTimer_Tick(object sender, EventArgs e)
         {
             UpdateInfo();
+        }
+
+
+
+        private void SpeedSubmitButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int speed = Convert.ToInt32(SpeedTextBox.Text);
+
+                Date.SecondsPerDay = speed;
+            }
+            catch (Exception exception)
+            {
+                Program.ShowErrorMessageBox(exception.Message);
+            }
         }
     }
 }

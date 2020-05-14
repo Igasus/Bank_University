@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bank_Logic;
+using System.Text.Json;
 
 
 
 namespace Bank_Serialization
 {
-    class SerializationDeposit
+    public class SerializationDeposit
     {
         public string Title { get; set; }
         public double AnnualRate { get; set; }
@@ -32,6 +33,15 @@ namespace Bank_Serialization
             foreach (LocalDeposit localDeposit in deposit.LocalDeposits)
                 localDeposits.Add(localDeposit.Title);
             LocalDeposits = localDeposits.ToArray();
+        }
+
+
+
+        static public SerializationDeposit Deserialize(string json)
+        {
+            SerializationDeposit result = JsonSerializer.Deserialize<SerializationDeposit>(json);
+            
+            return result;
         }
     }
 }

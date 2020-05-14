@@ -85,6 +85,11 @@ namespace Bank_Logic
 
 
 
+        // Private "empty" constructor for deserialization
+        private Deposit() { }
+
+
+
         public Deposit(Bank bank, string title, double annualRate, int duration)
         {
             Bank = bank;
@@ -219,6 +224,14 @@ namespace Bank_Logic
 
 
 
+        // Links LocalDeposit to current Deposit while Deserialization
+        public void LinkLocalDeposit(LocalDeposit localDposit)
+        {
+            LocalDeposits.Add(localDposit);
+        }
+
+
+
         // Overriding Equals() method
         public override bool Equals(object obj)
         {
@@ -247,6 +260,26 @@ namespace Bank_Logic
             result += $"|- LocalDeposits.Length: {LocalDeposits.Count} \n";
 
             return result;
+        }
+
+
+
+        //-----Static--class--members---------------------------------
+
+
+
+        // converts SerializationDeposit object to Deposit object
+        static public Deposit GetObject(Bank bank, SerializationDeposit serializationDeposit)
+        {
+            Deposit deposit = new Deposit();
+
+            deposit.Bank = bank;
+            deposit.Title = serializationDeposit.Title;
+            deposit.AnnualRate = serializationDeposit.AnnualRate;
+            deposit.Duration = serializationDeposit.Duration;
+            deposit.LocalDeposits = new List<LocalDeposit>();
+
+            return deposit;
         }
     }
 }

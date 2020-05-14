@@ -81,6 +81,11 @@ namespace Bank_Logic
 
 
 
+        // Private "empty" constructor for deserialization
+        private User() { }
+
+
+
         public User(string username, string password, Bank bank)
         {
             Bank = bank;
@@ -251,6 +256,14 @@ namespace Bank_Logic
 
 
 
+        // Links LocalDeposit to current User while Deserialization
+        public void LinkLocalDeposit(LocalDeposit localDposit)
+        {
+            Deposits.Add(localDposit);
+        }
+
+
+
         // Overriding Equals() method
         public override bool Equals(object obj)
         {
@@ -283,6 +296,29 @@ namespace Bank_Logic
                 result += $"   |- {deposit.Title}: {deposit.Account} \n";
 
             return result;
+        }
+
+
+
+        //-----Static--class--members---------------------------------
+
+
+
+        // Converts SerializationUser object to User object
+        static public User GetObject(Bank bank, SerializationUser serializationUser)
+        {
+            User user = new User();
+
+            user.Bank = bank;
+            user.Username = serializationUser.Username;
+            user.Password = serializationUser.Password;
+            user.Name = serializationUser.Name;
+            user.Surname = serializationUser.Surname;
+            user.Account = serializationUser.Account;
+            user.BirthDate = Date.Deserialize(serializationUser.BirthDate);
+            user.Deposits = new List<LocalDeposit>();
+
+            return user;
         }
     }
 }

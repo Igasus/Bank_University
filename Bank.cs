@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Bank_University;
+using Bank_Serialization;
 
 
 
@@ -315,6 +316,39 @@ namespace Bank_Logic
             Banks.Add(bank);
 
             Program.StartForm.UpdateBankList();
+        }
+
+
+
+        // Converts json data and fills current Bank object
+        static public Bank GetObject(string bankTitle,
+            List<SerializationUser> serializationUsers,
+            List<SerializationDeposit> serializationDeposits,
+            List<SerializationLocalDeposit> serializationLocalDeposits)
+        {
+            List<User> users = new List<User>();
+            List<Deposit> deposits = new List<Deposit>();
+            Bank bank = new Bank(bankTitle);
+
+            foreach (SerializationUser serializationUser in serializationUsers)
+            {
+                User user = User.GetObject(bank, serializationUser);
+                users.Add(user);
+            }
+
+            foreach (SerializationDeposit serializationDeposit in serializationDeposits)
+            {
+                Deposit deposit = Deposit.GetObject(bank, serializationDeposit);
+                deposits.Add(deposit);
+            }
+
+            bank.Users = users;
+            bank.Deposits = deposits;
+
+            foreach (SerializationLocalDeposit serializationLocalDeposit in serializationLocalDeposits)
+                LocalDeposit.LinkObject(bank, serializationLocalDeposit);
+
+            return bank;
         }
     }
 }

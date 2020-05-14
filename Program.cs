@@ -7,6 +7,7 @@ using Bank_Logic;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Bank_Serialization;
 
 
 
@@ -25,12 +26,12 @@ namespace Bank_University
 
         static private void ClearDirectory(string path)
         {
-            DirectoryInfo di = new DirectoryInfo(path);
+            DirectoryInfo directoryInfo = new DirectoryInfo(path);
 
-            foreach (FileInfo file in di.GetFiles())
+            foreach (FileInfo file in directoryInfo.GetFiles())
                 file.Delete();
 
-            foreach (DirectoryInfo directory in di.GetDirectories())
+            foreach (DirectoryInfo directory in directoryInfo.GetDirectories())
                 directory.Delete(true);
         }
 
@@ -47,9 +48,8 @@ namespace Bank_University
             
             using (StreamWriter streamWriter = new StreamWriter(datePath))
             {
-                string dateString = Date.CurrentDate.ToString();
-                string dateJson = JsonSerializer.Serialize<Date>(Date.CurrentDate);
-                Console.WriteLine(dateJson);
+                SerializationCurrentDate serializationCurrentDate = new SerializationCurrentDate();
+                string dateJson = JsonSerializer.Serialize<SerializationCurrentDate>(serializationCurrentDate);
                 streamWriter.Write(dateJson);
             }
 
@@ -150,9 +150,9 @@ namespace Bank_University
                 {
                     try
                     {
-                        string json = streamReader.ReadToEnd();
-                        Date result = JsonSerializer.Deserialize<Date>(json);
-                        Date.CurrentDate.SetDate(result);
+                        string dateJson = streamReader.ReadToEnd();
+                        SerializationCurrentDate serializationCurrentDate = SerializationCurrentDate.Deserialize(dateJson);
+                        Date.SetCurrentDateData(serializationCurrentDate);
                     }
                     catch (Exception) { }
                 }
@@ -164,7 +164,7 @@ namespace Bank_University
                 foreach (string bankPath in bankPathArray)
                 {
                     Bank bank = LoadBank(bankPath);
-                    //Bank.Banks.Add(bank);
+                    Bank.Banks.Add(bank);
                 }
             }
         }
@@ -174,7 +174,65 @@ namespace Bank_University
         static private Bank LoadBank(string path)
         {
             string bankTitle = path.Substring(path.LastIndexOf('\\') + 1, path.Length - path.LastIndexOf('\\') - 1);
-            Bank bank = new Bank(bankTitle);
+
+            string usersPath = path + @"\Users";
+            string depositsPath = path + @"\Deposits";
+            string localDepositsPath = path + @"\LocalDeposits";
+
+            List<SerializationUser> serializationUsers = new List<SerializationUser>();
+            List<SerializationDeposit> serializationDeposits = new List<SerializationDeposit>();
+            List<SerializationLocalDeposit> serializationLocalDeposits = new List<SerializationLocalDeposit>();
+
+
+            if (Directory.Exists(usersPath))
+            {
+                DirectoryInfo directoryInfo = new DirectoryInfo(usersPath);
+                FileInfo[] fileInfos = directoryInfo.GetFiles();
+
+                foreach (FileInfo fileInfo in fileInfos)
+                    using (StreamReader streamReader = fileInfo.OpenText())
+                    {
+                        string userJson = streamReader.ReadToEnd();
+                        SerializationUser serializationUser =
+                            SerializationUser.Deserialize(userJson);
+                        serializationUsers.Add(serializationUser);
+                    }
+            }
+
+
+            if (Directory.Exists(depositsPath))
+            {
+                DirectoryInfo directoryInfo = new DirectoryInfo(depositsPath);
+                FileInfo[] fileInfos = directoryInfo.GetFiles();
+
+                foreach (FileInfo fileInfo in fileInfos)
+                    using (StreamReader streamReader = fileInfo.OpenText())
+                    {
+                        string depositJson = streamReader.ReadToEnd();
+                        SerializationDeposit serializationDeposit =
+                            SerializationDeposit.Deserialize(depositJson);
+                        serializationDeposits.Add(serializationDeposit);
+                    }
+            }
+
+
+            if (Directory.Exists(localDepositsPath))
+            {
+                DirectoryInfo directoryInfo = new DirectoryInfo(localDepositsPath);
+                FileInfo[] fileInfos = directoryInfo.GetFiles();
+
+                foreach (FileInfo fileInfo in fileInfos)
+                    using (StreamReader streamReader = fileInfo.OpenText())
+                    {
+                        string localDepositJson = streamReader.ReadToEnd();
+                        SerializationLocalDeposit serializationLocalDeposit =
+                            SerializationLocalDeposit.Deserialize(localDepositJson);
+                        serializationLocalDeposits.Add(serializationLocalDeposit);
+                    }
+            }
+
+
+            Bank bank = Bank.GetObject(bankTitle, serializationUsers, serializationDeposits, serializationLocalDeposits);
 
             return bank;
         }

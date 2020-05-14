@@ -81,6 +81,7 @@
     <Compile Include="DateForm.Designer.cs">
       <DependentUpon>DateForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SerializationCurrentDate.cs" />
     <Compile Include="SerializationDeposit.cs" />
     <Compile Include="SerializationLocalDeposit.cs" />
     <Compile Include="SerializationTransferAction.cs" />

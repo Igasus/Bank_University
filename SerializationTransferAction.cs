@@ -8,7 +8,7 @@ using System.Text.Json;
 
 namespace Bank_Serialization
 {
-    class SerializationTransferAction
+    public class SerializationTransferAction
     {
         public double AmountOfMoney { get; set; }
         public string TransferType { get; set; }
@@ -26,6 +26,15 @@ namespace Bank_Serialization
             TransferType = transferAction.GetStringType();
 
             Date = transferAction.Date.Json();
+        }
+
+
+
+        static public SerializationTransferAction Deserialize(string json)
+        {
+            SerializationTransferAction result = JsonSerializer.Deserialize<SerializationTransferAction>(json);
+
+            return result;
         }
     }
 }

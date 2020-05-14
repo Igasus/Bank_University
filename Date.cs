@@ -1,6 +1,7 @@
 ﻿using System;
 using Bank_University;
 using System.Text.Json;
+using Bank_Serialization;
 
 
 
@@ -297,9 +298,10 @@ namespace Bank_Logic
         {
             date1 = new Date(date1);
             date2 = new Date(date2);
-
-            date1.Year -= 1;
-            date2.Year -= 1;
+            
+            // If Year == 1, there will become an Exception "Year must be > 0", so Date.Year -= 1 --> Date._year -= 1
+            date1._year -= 1;
+            date2._year -= 1;
             int yearLower = date1 - date2;
 
             date1.Year += 1;
@@ -398,6 +400,29 @@ namespace Bank_Logic
         public static bool operator <=(Date date1, Date date2)
         {
             return date1 < date2 || date1.Equals(date2);
+        }
+
+
+
+        // Converts json data to object
+        static public Date Deserialize(string json)
+        {
+            Date result = JsonSerializer.Deserialize<Date>(json);
+
+            return result;
+        }
+
+
+
+        static public void SetCurrentDateData(SerializationCurrentDate serializationCurrentDate)
+        {
+            int day = serializationCurrentDate.Day;
+            int month = serializationCurrentDate.Month;
+            int year = serializationCurrentDate.Year;
+            int secondsPerDay = serializationCurrentDate.SecondsPerDay;
+
+            CurrentDate.SetDate(day, month, year);
+            SecondsPerDay = secondsPerDay;
         }
     }
 }

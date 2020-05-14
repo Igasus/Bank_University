@@ -10,7 +10,7 @@ using System.Text.Json;
 
 namespace Bank_Serialization
 {
-    class SerializationLocalDeposit
+    public class SerializationLocalDeposit
     {
         public double Account { get; set; }
         public string OpenDate { get; set; }
@@ -35,6 +35,15 @@ namespace Bank_Serialization
             foreach (TransferAction transferAction in localDeposit.History)
                 history.Add(transferAction.Json());
             History = history.ToArray();
+        }
+
+
+
+        static public SerializationLocalDeposit Deserialize(string json)
+        {
+            SerializationLocalDeposit result = JsonSerializer.Deserialize<SerializationLocalDeposit>(json);
+            
+            return result;
         }
     }
 }

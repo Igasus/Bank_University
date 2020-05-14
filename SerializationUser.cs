@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bank_Logic;
+using System.Text.Json;
 
 
 
 namespace Bank_Serialization
 {
-    class SerializationUser
+    public class SerializationUser
     {
         public string Username { get; set; }
         public string Password { get; set; }
@@ -39,6 +40,15 @@ namespace Bank_Serialization
             foreach (LocalDeposit deposit in user.Deposits)
                 deposits.Add(deposit.Title);
             Deposits = deposits.ToArray();
+        }
+
+
+
+        static public SerializationUser Deserialize(string json)
+        {
+            SerializationUser result = JsonSerializer.Deserialize<SerializationUser>(json);
+            
+            return result;
         }
     }
 }
