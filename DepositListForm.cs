@@ -15,8 +15,6 @@ namespace Bank_University
 {
     public partial class DepositListForm : Form
     {
-        private Form _previousForm;
-        private bool _backAction;
         private List<Deposit> _currentDeposits;
         public Bank Bank { get; private set; }
 
@@ -29,14 +27,12 @@ namespace Bank_University
 
 
 
-        public DepositListForm(Bank bank, Form previousForm) : this()
+        public DepositListForm(Bank bank) : this()
         {
-            _previousForm = previousForm;
-            _backAction = false;
             Bank = bank;
 
             BankTitleLabel.Text = $"{Bank.Title} deposits";
-            UpdateInfo();
+            ResetInfo();
         }
 
 
@@ -60,11 +56,21 @@ namespace Bank_University
 
 
 
-        public void UpdateDepositGrid() => SetDepositGrid(Bank.Deposits);
+        public void UpdateDepositGrid()
+        {
+            string toFind = SearchTextBox.Text;
+            if (toFind != "")
+            {
+                List<Deposit> result = Bank.SearchDeposits(toFind);
+                SetDepositGrid(result);
+            }
+            else
+                SetDepositGrid(Bank.Deposits);
+        }
 
 
 
-        public void UpdateInfo()
+        public void ResetInfo()
         {
             SearchTextBox.Text = "";
             DeleteButton.Enabled = false;
@@ -74,19 +80,17 @@ namespace Bank_University
 
 
 
-        private void DepositListForm_FormClosed(object sender, FormClosedEventArgs e)
+        public void UpdateInfo()
         {
-            if (_backAction)
-                _previousForm.Show();
-            else
-                Program.StartForm.Close();
+            UpdateDepositGrid();
+
+            DateButton.Text = Date.CurrentDate.ToString();
         }
 
 
 
         private void BackButton_Click(object sender, EventArgs e)
         {
-            _backAction = true;
             Close();
         }
 
@@ -125,7 +129,7 @@ namespace Bank_University
 
         private void NewDepositButton_Click(object sender, EventArgs e)
         {
-            NewDepositForm form = new NewDepositForm(Bank, this);
+            NewDepositForm form = new NewDepositForm(Bank);
             form.ShowDialog();
         }
 
@@ -136,7 +140,7 @@ namespace Bank_University
             int rowIndex = DepositGridView.CurrentRow.Index;
             Deposit selectedDeposit = _currentDeposits[rowIndex];
             Bank.DeleteDeposit(selectedDeposit);
-            UpdateInfo();
+            ResetInfo();
         }
 
 
@@ -145,21 +149,15 @@ namespace Bank_University
         {
             DeleteButton.Enabled = false;
             EditButton.Enabled = false;
-            string toFind = SearchTextBox.Text;
-            if (toFind != "")
-            {
-                List<Deposit> result = Bank.SearchDeposits(toFind);
-                SetDepositGrid(result);
-            }
-            else
-                UpdateDepositGrid();
+
+            UpdateDepositGrid();
         }
 
 
 
         private void OpenEditForm(Deposit deposit)
         {
-            DepositEditForm form = new DepositEditForm(deposit, this);
+            DepositEditForm form = new DepositEditForm(deposit);
             form.ShowDialog();
         }
 
@@ -171,5 +169,20 @@ namespace Bank_University
             Deposit selectedDeposit = _currentDeposits[rowIndex];
             OpenEditForm(selectedDeposit);
         }
+
+
+        private void DateButton_Click(object sender, EventArgs e)
+        {
+            DateForm form = new DateForm();
+            form.Show();
+        }
+
+
+
+        private void DateTimer_Tick(object sender, EventArgs e)
+        {
+            UpdateInfo();
+        }
+
     }
 }

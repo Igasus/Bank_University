@@ -15,7 +15,6 @@ namespace Bank_University
 {
     public partial class NewLocalDepositForm : Form
     {
-        private Form _previousForm;
         private Bank _bank;
         private User _user;
         private Deposit _deposit;
@@ -29,9 +28,8 @@ namespace Bank_University
 
 
 
-        public NewLocalDepositForm(Bank bank, Form previousForm, User user = null, Deposit deposit = null) : this()
+        public NewLocalDepositForm(Bank bank, User user = null, Deposit deposit = null) : this()
         {
-            _previousForm = previousForm;
             _bank = bank;
             _user = user;
             _deposit = deposit;
@@ -52,6 +50,8 @@ namespace Bank_University
             }
             else
                 DepositComboBox.Text = _deposit.Title;
+
+            UpdateInfo();
         }
 
 
@@ -84,13 +84,24 @@ namespace Bank_University
 
 
 
-        private void NewLocalDepositForm_FormClosed(object sender, FormClosedEventArgs e)
+        public void UpdateInfo()
         {
-            try
-            {
-                ((LocalDepositListForm)_previousForm).UpdateInfo();
-            }
-            catch (Exception) { }
+            DateButton.Text = Date.CurrentDate.ToString();
+        }
+
+
+
+        private void DateButton_Click(object sender, EventArgs e)
+        {
+            DateForm form = new DateForm();
+            form.Show();
+        }
+
+
+
+        private void DateTimer_Tick(object sender, EventArgs e)
+        {
+            UpdateInfo();
         }
     }
 }

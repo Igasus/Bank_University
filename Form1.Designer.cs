@@ -28,12 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.BankListBox = new System.Windows.Forms.ListBox();
             this.CreateBankButton = new System.Windows.Forms.Button();
             this.OpenBankButton = new System.Windows.Forms.Button();
             this.ChangeBankTitleButton = new System.Windows.Forms.Button();
             this.DeleteBankButton = new System.Windows.Forms.Button();
+            this.DateButton = new System.Windows.Forms.Button();
+            this.DateTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // label1
@@ -106,11 +109,29 @@
             this.DeleteBankButton.UseVisualStyleBackColor = true;
             this.DeleteBankButton.Click += new System.EventHandler(this.DeleteBankButton_Click);
             // 
+            // DateButton
+            // 
+            this.DateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.DateButton.Location = new System.Drawing.Point(556, 12);
+            this.DateButton.Name = "DateButton";
+            this.DateButton.Size = new System.Drawing.Size(124, 31);
+            this.DateButton.TabIndex = 7;
+            this.DateButton.Text = "<Date>";
+            this.DateButton.UseVisualStyleBackColor = true;
+            this.DateButton.Click += new System.EventHandler(this.DateButton_Click);
+            // 
+            // DateTimer
+            // 
+            this.DateTimer.Enabled = true;
+            this.DateTimer.Interval = 1000;
+            this.DateTimer.Tick += new System.EventHandler(this.DateTimer_Tick);
+            // 
             // BankListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(691, 606);
+            this.Controls.Add(this.DateButton);
             this.Controls.Add(this.ChangeBankTitleButton);
             this.Controls.Add(this.DeleteBankButton);
             this.Controls.Add(this.OpenBankButton);
@@ -135,6 +156,8 @@
         private System.Windows.Forms.Button OpenBankButton;
         private System.Windows.Forms.Button ChangeBankTitleButton;
         private System.Windows.Forms.Button DeleteBankButton;
+        private System.Windows.Forms.Button DateButton;
+        private System.Windows.Forms.Timer DateTimer;
     }
 }
 

@@ -94,6 +94,29 @@ namespace Bank_Logic
 
 
 
+        // Increases Account by certain amountOfMoney
+        public void Replenish(double amountOfMoney)
+        {
+            try
+            {
+                Account += amountOfMoney;
+            }
+            catch (Exception)
+            {
+                throw new Exception($"User '{Username}' doesn't have enough money.");
+            }
+        }
+
+
+
+        // Decreases Account by certain amountOfMoney
+        public void Withdraw(double amountOfMoney)
+        {
+            Account -= amountOfMoney;
+        }
+
+
+
         // Creates new LocalDeposit
         public void OpenDeposit(Deposit parentDeposit, double seedCapital)
         {

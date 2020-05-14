@@ -312,7 +312,7 @@ namespace Bank_Logic
                 multiplier = -1;
             }
 
-            int left = (higherDate.Year - lowerDate.Year) * 365;
+            int left = (higherDate.Year - lowerDate.Year - 1) * 365;
             int right = (higherDate.Year - lowerDate.Year + 1) * 366;
             int center = (left + right) / 2;
 

@@ -70,12 +70,12 @@ namespace Bank_Logic
 
 
         // Simple auth.
-        public bool Login(string username, string password)
+        public User Login(string username, string password)
         {
             foreach (User user in Users)
                 if (user.Username == username)
-                    return user.Password == password;
-            return false;
+                    return user.Password == password ? user : null;
+            return null;
         }
 
 
@@ -158,7 +158,15 @@ namespace Bank_Logic
             if (amountOfMoney <= 0)
                 throw new Exception("Transferring amount must be more than zero(0)");
 
-            sender.Account -= amountOfMoney;
+            try
+            {
+                sender.Account -= amountOfMoney;
+            }
+            catch (Exception)
+            {
+                throw new Exception($"User '{sender.Username}' doesn't have enough money for transfer.");
+            }
+            
             receiver.Account += amountOfMoney;
         }
 

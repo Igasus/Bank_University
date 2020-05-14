@@ -16,7 +16,6 @@ namespace Bank_University
     public partial class ProfileEditForm : Form
     {
         private User _user;
-        private Form _previousForm;
 
 
 
@@ -27,10 +26,16 @@ namespace Bank_University
 
 
 
-        public ProfileEditForm(User user, Form previousForm = null) : this()
+        public ProfileEditForm(User user) : this()
         {
             _user = user;
-            _previousForm = previousForm;
+
+            NewUsernameTextBox.Text = _user.Username;
+            NewPasswordTextBox.Text = _user.Password;
+            NewNameTextBox.Text = _user.Name;
+            NewSurnameTextBox.Text = _user.Surname;
+            NewAccountTextBox.Text = String.Format("{0:0.00}", _user.Account);
+            NewBirthDateTextBox.Text = _user.BirthDate.ToString();
 
             UpdateInfo();
         }
@@ -61,16 +66,9 @@ namespace Bank_University
 
 
 
-        private void CancelButton_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-
-
         private void DepositButton_Click(object sender, EventArgs e)
         {
-            LocalDepositListForm form = new LocalDepositListForm(_user.Deposits, this, user: _user);
+            LocalDepositListForm form = new LocalDepositListForm(_user.Deposits, user: _user);
             form.ShowDialog();
         }
 
@@ -122,24 +120,29 @@ namespace Bank_University
             OldAccountTextBox.Text = String.Format("{0:0.00}", _user.Account);
             OldBirthDateTextBox.Text = _user.BirthDate.ToString();
 
-            NewUsernameTextBox.Text = _user.Username;
-            NewPasswordTextBox.Text = _user.Password;
-            NewNameTextBox.Text = _user.Name;
-            NewSurnameTextBox.Text = _user.Surname;
-            NewAccountTextBox.Text = String.Format("{0:0.00}", _user.Account);
-            NewBirthDateTextBox.Text = _user.BirthDate.ToString();
+            DateButton.Text = Date.CurrentDate.ToString();
         }
 
 
 
-        private void ProfileEditForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void CloseButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                ((UserListForm) _previousForm).UpdateInfo();
-                return;
-            }
-            catch (Exception) { }
+            Close();
+        }
+
+
+
+        private void DateButton_Click(object sender, EventArgs e)
+        {
+            DateForm form = new DateForm();
+            form.Show();
+        }
+
+
+
+        private void DateTimer_Tick(object sender, EventArgs e)
+        {
+            UpdateInfo();
         }
     }
 }

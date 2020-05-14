@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.CancelButton = new System.Windows.Forms.Button();
             this.SubmitButton = new System.Windows.Forms.Button();
             this.NewDurationTextBox = new System.Windows.Forms.TextBox();
@@ -47,6 +48,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.LocalDepositListButton = new System.Windows.Forms.Button();
+            this.DateButton = new System.Windows.Forms.Button();
+            this.DateTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // CancelButton
@@ -218,9 +221,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.label1.Location = new System.Drawing.Point(298, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(202, 31);
+            this.label1.Size = new System.Drawing.Size(216, 31);
             this.label1.TabIndex = 38;
-            this.label1.Text = "Edit profile data";
+            this.label1.Text = "Edit deposit data";
             // 
             // LocalDepositListButton
             // 
@@ -233,11 +236,29 @@
             this.LocalDepositListButton.UseVisualStyleBackColor = true;
             this.LocalDepositListButton.Click += new System.EventHandler(this.LocalDepositListButton_Click);
             // 
+            // DateButton
+            // 
+            this.DateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.DateButton.Location = new System.Drawing.Point(668, 12);
+            this.DateButton.Name = "DateButton";
+            this.DateButton.Size = new System.Drawing.Size(124, 31);
+            this.DateButton.TabIndex = 68;
+            this.DateButton.Text = "<Date>";
+            this.DateButton.UseVisualStyleBackColor = true;
+            this.DateButton.Click += new System.EventHandler(this.DateButton_Click);
+            // 
+            // DateTimer
+            // 
+            this.DateTimer.Enabled = true;
+            this.DateTimer.Interval = 1000;
+            this.DateTimer.Tick += new System.EventHandler(this.DateTimer_Tick);
+            // 
             // DepositEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(804, 414);
+            this.Controls.Add(this.DateButton);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.SubmitButton);
             this.Controls.Add(this.LocalDepositListButton);
@@ -261,7 +282,6 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "DepositEditForm";
             this.Text = "Edit deposit";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DepositEditForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -288,5 +308,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button LocalDepositListButton;
+        private System.Windows.Forms.Button DateButton;
+        private System.Windows.Forms.Timer DateTimer;
     }
 }

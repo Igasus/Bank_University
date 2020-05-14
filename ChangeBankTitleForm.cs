@@ -27,7 +27,8 @@ namespace Bank_University
         public ChangeBankTitleForm(Bank bank): this()
         {
             Bank = bank;
-            PreviousTitleTextBox.Text = Bank.Title;
+
+            UpdateInfo();
         }
 
 
@@ -62,6 +63,29 @@ namespace Bank_University
         private void CancelButton_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+
+
+        public void UpdateInfo()
+        {
+            PreviousTitleTextBox.Text = Bank.Title;
+            DateButton.Text = Date.CurrentDate.ToString();
+        }
+
+
+
+        private void DateTime_Tick(object sender, EventArgs e)
+        {
+            UpdateInfo();
+        }
+
+
+
+        private void DateButton_Click(object sender, EventArgs e)
+        {
+            DateForm form = new DateForm();
+            form.Show();
         }
     }
 }

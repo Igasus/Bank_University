@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.OpenButton = new System.Windows.Forms.Button();
             this.DepositGridView = new System.Windows.Forms.DataGridView();
             this.UsernameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -39,6 +40,8 @@
             this.SearchTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.TitleLabel = new System.Windows.Forms.Label();
+            this.DateButton = new System.Windows.Forms.Button();
+            this.DateTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DepositGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -156,11 +159,29 @@
             this.TitleLabel.Text = "Users\' \"_\" deposits";
             this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // DateButton
+            // 
+            this.DateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.DateButton.Location = new System.Drawing.Point(788, 9);
+            this.DateButton.Name = "DateButton";
+            this.DateButton.Size = new System.Drawing.Size(124, 31);
+            this.DateButton.TabIndex = 24;
+            this.DateButton.Text = "<Date>";
+            this.DateButton.UseVisualStyleBackColor = true;
+            this.DateButton.Click += new System.EventHandler(this.DateButton_Click);
+            // 
+            // DateTimer
+            // 
+            this.DateTimer.Enabled = true;
+            this.DateTimer.Interval = 1000;
+            this.DateTimer.Tick += new System.EventHandler(this.DateTimer_Tick);
+            // 
             // LocalDepositListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(924, 602);
+            this.Controls.Add(this.DateButton);
             this.Controls.Add(this.OpenButton);
             this.Controls.Add(this.DepositGridView);
             this.Controls.Add(this.BackButton);
@@ -172,7 +193,6 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "LocalDepositListForm";
             this.Text = "Deposits list";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LocalDepositListForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.DepositGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -192,5 +212,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn AccountColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn OpenDateColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn CloseDateColumn;
+        private System.Windows.Forms.Button DateButton;
+        private System.Windows.Forms.Timer DateTimer;
     }
 }

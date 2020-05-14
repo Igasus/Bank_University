@@ -15,8 +15,6 @@ namespace Bank_University
 {
     public partial class UserListForm : Form
     {
-        private Form _previousForm;
-        private bool _backAction;
         private List<User> _currentUsers;
         public Bank Bank { get; private set; }
 
@@ -26,13 +24,13 @@ namespace Bank_University
 
 
 
-        public UserListForm(Bank bank, Form previousForm) : this()
+        public UserListForm(Bank bank) : this()
         {
             Bank = bank;
-            _backAction = false;
-            _previousForm = previousForm;
             _currentUsers = Bank.Users;
             BankTitleLabel.Text = Bank.Title + " users";
+
+            ResetInfo();
         }
 
 
@@ -58,23 +56,23 @@ namespace Bank_University
 
 
 
-        public void UpdateUserGrid() => SetUserGrid(Bank.Users);
-
-        private void UserListForm_Load(object sender, EventArgs e) => UpdateUserGrid();
-
-        private void UserListForm_FormClosed(object sender, FormClosedEventArgs e)
+        public void UpdateUserGrid()
         {
-            if (_backAction)
-                _previousForm.Show();
+            string toFind = SearchTextBox.Text;
+            if (toFind != "")
+            {
+                List<User> result = Bank.SearchUsers(toFind);
+                SetUserGrid(result);
+            }
             else
-                Program.StartForm.Close();
+                SetUserGrid(Bank.Users);
         }
 
 
 
         private void RegisterButton_Click(object sender, EventArgs e)
         {
-            RegisterForm registerForm = new RegisterForm(Bank, this);
+            RegisterForm registerForm = new RegisterForm(Bank);
             registerForm.ShowDialog();
         }
 
@@ -82,7 +80,6 @@ namespace Bank_University
 
         private void BackButton_Click(object sender, EventArgs e)
         {
-            _backAction = true;
             Close();
         }
 
@@ -91,21 +88,14 @@ namespace Bank_University
         private void SearchTextBox_TextChanged(object sender, EventArgs e)
         {
             DeleteButton.Enabled = false;
-            string toFind = SearchTextBox.Text;
-            if (toFind != "")
-            {
-                List<User> result = Bank.SearchUsers(toFind);
-                SetUserGrid(result);
-            }
-            else
-                UpdateUserGrid();
+            
         }
 
 
 
         private void OpenEditForm(User user)
         {
-            ProfileEditForm profileForm = new ProfileEditForm(user, this);
+            ProfileEditForm profileForm = new ProfileEditForm(user);
             profileForm.ShowDialog();
         }
 
@@ -124,7 +114,7 @@ namespace Bank_University
 
 
 
-        public void UpdateInfo()
+        public void ResetInfo()
         {
             SearchTextBox.Text = "";
             DeleteButton.Enabled = false;
@@ -134,12 +124,21 @@ namespace Bank_University
 
 
 
+        public void UpdateInfo()
+        {
+            UpdateUserGrid();
+
+            DateButton.Text = Date.CurrentDate.ToString();
+        }
+
+
+
         private void DeleteButton_Click(object sender, EventArgs e)
         {
             int rowIndex = UserGridView.CurrentRow.Index;
             User user = _currentUsers[rowIndex];
             Bank.DeleteUser(user);
-            UpdateInfo();
+            ResetInfo();
         }
 
 
@@ -168,6 +167,21 @@ namespace Bank_University
             User selectedUser = _currentUsers[rowIndex];
 
             OpenEditForm(selectedUser);
+        }
+
+
+
+        private void DateButton_Click(object sender, EventArgs e)
+        {
+            DateForm form = new DateForm();
+            form.Show();
+        }
+
+
+
+        private void DateTimer_Tick(object sender, EventArgs e)
+        {
+            UpdateInfo();
         }
     }
 }

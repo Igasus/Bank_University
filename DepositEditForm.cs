@@ -15,7 +15,6 @@ namespace Bank_University
 {
     public partial class DepositEditForm : Form
     {
-        private Form _previousForm;
         private Deposit _deposit;
 
 
@@ -27,30 +26,22 @@ namespace Bank_University
 
 
 
-        public DepositEditForm(Deposit deposit, Form previousForm) : this()
+        public DepositEditForm(Deposit deposit) : this()
         {
-            _previousForm = previousForm;
             _deposit = deposit;
+
+            NewTitleTextBox.Text = _deposit.Title;
+            NewAnnualRateTextBox.Text = String.Format("{0:0.00}", _deposit.AnnualRate * 100);
+            NewDurationTextBox.Text = _deposit.Duration.ToString();
 
             UpdateInfo();
         }
 
 
 
-        private void DepositEditForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            try
-            {
-                ((DepositListForm)_previousForm).UpdateInfo();
-            }
-            catch (Exception) { }
-        }
-
-
-
         private void LocalDepositListButton_Click(object sender, EventArgs e)
         {
-            LocalDepositListForm form = new LocalDepositListForm(_deposit.LocalDeposits, this, deposit: _deposit);
+            LocalDepositListForm form = new LocalDepositListForm(_deposit.LocalDeposits, deposit: _deposit);
             form.ShowDialog();
         }
 
@@ -80,9 +71,7 @@ namespace Bank_University
             OldAnnualRateTextBox.Text = String.Format("{0:0.00}", _deposit.AnnualRate * 100);
             OldDurationTextBox.Text = _deposit.Duration.ToString();
 
-            NewTitleTextBox.Text = _deposit.Title;
-            NewAnnualRateTextBox.Text = String.Format("{0:0.00}", _deposit.AnnualRate * 100);
-            NewDurationTextBox.Text = _deposit.Duration.ToString();
+            DateButton.Text = Date.CurrentDate.ToString();
         }
 
 
@@ -90,6 +79,21 @@ namespace Bank_University
         private void CancelButton_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+
+
+        private void DateButton_Click(object sender, EventArgs e)
+        {
+            DateForm form = new DateForm();
+            form.Show();
+        }
+
+
+
+        private void DateTimer_Tick(object sender, EventArgs e)
+        {
+            UpdateInfo();
         }
     }
 }

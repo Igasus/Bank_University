@@ -28,19 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.DepositGridView = new System.Windows.Forms.DataGridView();
+            this.TitleColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AnnualRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DurationColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalAccountColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LocalDepositsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BackButton = new System.Windows.Forms.Button();
             this.NewDepositButton = new System.Windows.Forms.Button();
             this.SearchTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.BankTitleLabel = new System.Windows.Forms.Label();
             this.EditButton = new System.Windows.Forms.Button();
-            this.TitleColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AnnualRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DurationColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalAccountColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LocalDepositsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateButton = new System.Windows.Forms.Button();
+            this.DateTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DepositGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,6 +79,41 @@
             this.DepositGridView.TabIndex = 13;
             this.DepositGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DepositGridView_CellDoubleClick);
             this.DepositGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DepositGridView_CellMouseClick);
+            // 
+            // TitleColumn
+            // 
+            this.TitleColumn.HeaderText = "Title";
+            this.TitleColumn.Name = "TitleColumn";
+            this.TitleColumn.ReadOnly = true;
+            this.TitleColumn.Width = 200;
+            // 
+            // AnnualRateColumn
+            // 
+            this.AnnualRateColumn.HeaderText = "Annual rate, %";
+            this.AnnualRateColumn.Name = "AnnualRateColumn";
+            this.AnnualRateColumn.ReadOnly = true;
+            this.AnnualRateColumn.Width = 150;
+            // 
+            // DurationColumn
+            // 
+            this.DurationColumn.HeaderText = "Duration, months";
+            this.DurationColumn.Name = "DurationColumn";
+            this.DurationColumn.ReadOnly = true;
+            this.DurationColumn.Width = 170;
+            // 
+            // TotalAccountColumn
+            // 
+            this.TotalAccountColumn.HeaderText = "Total account";
+            this.TotalAccountColumn.Name = "TotalAccountColumn";
+            this.TotalAccountColumn.ReadOnly = true;
+            this.TotalAccountColumn.Width = 190;
+            // 
+            // LocalDepositsColumn
+            // 
+            this.LocalDepositsColumn.HeaderText = "User\'s deposits";
+            this.LocalDepositsColumn.Name = "LocalDepositsColumn";
+            this.LocalDepositsColumn.ReadOnly = true;
+            this.LocalDepositsColumn.Width = 145;
             // 
             // BackButton
             // 
@@ -143,46 +181,29 @@
             this.EditButton.UseVisualStyleBackColor = true;
             this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
             // 
-            // TitleColumn
+            // DateButton
             // 
-            this.TitleColumn.HeaderText = "Title";
-            this.TitleColumn.Name = "TitleColumn";
-            this.TitleColumn.ReadOnly = true;
-            this.TitleColumn.Width = 200;
+            this.DateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.DateButton.Location = new System.Drawing.Point(788, 12);
+            this.DateButton.Name = "DateButton";
+            this.DateButton.Size = new System.Drawing.Size(124, 31);
+            this.DateButton.TabIndex = 16;
+            this.DateButton.Text = "<Date>";
+            this.DateButton.UseVisualStyleBackColor = true;
+            this.DateButton.Click += new System.EventHandler(this.DateButton_Click);
             // 
-            // AnnualRateColumn
+            // DateTimer
             // 
-            this.AnnualRateColumn.HeaderText = "Annual rate, %";
-            this.AnnualRateColumn.Name = "AnnualRateColumn";
-            this.AnnualRateColumn.ReadOnly = true;
-            this.AnnualRateColumn.Width = 150;
-            // 
-            // DurationColumn
-            // 
-            this.DurationColumn.HeaderText = "Duration, months";
-            this.DurationColumn.Name = "DurationColumn";
-            this.DurationColumn.ReadOnly = true;
-            this.DurationColumn.Width = 170;
-            // 
-            // TotalAccountColumn
-            // 
-            this.TotalAccountColumn.HeaderText = "Total account";
-            this.TotalAccountColumn.Name = "TotalAccountColumn";
-            this.TotalAccountColumn.ReadOnly = true;
-            this.TotalAccountColumn.Width = 190;
-            // 
-            // LocalDepositsColumn
-            // 
-            this.LocalDepositsColumn.HeaderText = "User\'s deposits";
-            this.LocalDepositsColumn.Name = "LocalDepositsColumn";
-            this.LocalDepositsColumn.ReadOnly = true;
-            this.LocalDepositsColumn.Width = 145;
+            this.DateTimer.Enabled = true;
+            this.DateTimer.Interval = 1000;
+            this.DateTimer.Tick += new System.EventHandler(this.DateTimer_Tick);
             // 
             // DepositListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(924, 605);
+            this.Controls.Add(this.DateButton);
             this.Controls.Add(this.EditButton);
             this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.DepositGridView);
@@ -195,7 +216,6 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "DepositListForm";
             this.Text = "Deposits";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DepositListForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.DepositGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -217,5 +237,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DurationColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalAccountColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn LocalDepositsColumn;
+        private System.Windows.Forms.Button DateButton;
+        private System.Windows.Forms.Timer DateTimer;
     }
 }

@@ -17,6 +17,7 @@ namespace Bank_Logic
         public string Title { get => ParentDeposit.Title; }
         public double AnnualRate { get => ParentDeposit.AnnualRate; }
         public int Duration { get => ParentDeposit.Duration; }
+        public Bank Bank { get => ParentDeposit.Bank; }
         public Date CloseDate
         {
             get
@@ -84,36 +85,36 @@ namespace Bank_Logic
         // Method that checks Deposit on finish
         public void Update()
         {
-            if (Date.CurrentDate < CloseDate)
-                return;
-
-            double withdrawTotalMoneyAmount = 0;
-            List<TransferAction> replenishActions = new List<TransferAction>();
-            foreach (TransferAction action in History)
-                if (action.Type == TransferType.WITHDRAW)
-                    withdrawTotalMoneyAmount += action.AmountOfMoney;
-                else
-                    replenishActions.Add(action);
-
-            int extraDay = Date.RangeContainsExtraDay(OpenDate, CloseDate) ? 1 : 0;
-            double finalAmountOfMoney = 0;
-            Date lastActionDate = new Date(OpenDate);
-            foreach (TransferAction action in replenishActions)
+            while (Date.CurrentDate >= CloseDate)
             {
-                finalAmountOfMoney *= Math.Pow(1 + ParentDeposit.AnnualRate, (double)(action.Date - lastActionDate) / (365 + extraDay));
-                lastActionDate.SetDate(action.Date);
-                double delta = Math.Min(action.AmountOfMoney, withdrawTotalMoneyAmount);
-                finalAmountOfMoney += action.AmountOfMoney - delta;
-                withdrawTotalMoneyAmount -= delta;
+                double withdrawTotalMoneyAmount = 0;
+                List<TransferAction> replenishActions = new List<TransferAction>();
+                foreach (TransferAction action in History)
+                    if (action.Type == TransferType.WITHDRAW)
+                        withdrawTotalMoneyAmount += action.AmountOfMoney;
+                    else
+                        replenishActions.Add(action);
+
+                int extraDay = Date.RangeContainsExtraDay(OpenDate, CloseDate) ? 1 : 0;
+                double finalAmountOfMoney = 0;
+                Date lastActionDate = new Date(OpenDate);
+                foreach (TransferAction action in replenishActions)
+                {
+                    finalAmountOfMoney *= Math.Pow(1 + ParentDeposit.AnnualRate, (double)(action.Date - lastActionDate) / (365 + extraDay));
+                    lastActionDate.SetDate(action.Date);
+                    double delta = Math.Min(action.AmountOfMoney, withdrawTotalMoneyAmount);
+                    finalAmountOfMoney += action.AmountOfMoney - delta;
+                    withdrawTotalMoneyAmount -= delta;
+                }
+                finalAmountOfMoney *= Math.Pow(1 + ParentDeposit.AnnualRate, (double)(CloseDate - lastActionDate) / (365 + extraDay));
+
+                Account = finalAmountOfMoney;
+                OpenDate.SetDate(CloseDate);
+
+                History.Clear();
+                TransferAction depositUpdateAction = new TransferAction(OpenDate, TransferType.DEPOSIT, finalAmountOfMoney);
+                History.Add(depositUpdateAction);
             }
-            finalAmountOfMoney *= Math.Pow(1 + ParentDeposit.AnnualRate, (double)(CloseDate - lastActionDate) / (365 + extraDay));
-
-            Account = finalAmountOfMoney;
-            OpenDate.SetDate(CloseDate);
-
-            History.Clear();
-            TransferAction depositUpdateAction = new TransferAction(Date.CurrentDate, TransferType.DEPOSIT, finalAmountOfMoney);
-            History.Add(depositUpdateAction);
         }
 
 

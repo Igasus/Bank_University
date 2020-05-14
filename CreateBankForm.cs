@@ -16,6 +16,8 @@ namespace Bank_University
         public CreateBankForm()
         {
             InitializeComponent();
+
+            UpdateInfo();
         }
 
 
@@ -50,6 +52,28 @@ namespace Bank_University
                 SubmitButon.Enabled = false;
             else
                 SubmitButon.Enabled = true;
+        }
+
+
+
+        public void UpdateInfo()
+        {
+            DateButton.Text = Date.CurrentDate.ToString();
+        }
+
+
+
+        private void DateButton_Click(object sender, EventArgs e)
+        {
+            DateForm form = new DateForm();
+            form.Show();
+        }
+
+
+
+        private void DateTimer_Tick(object sender, EventArgs e)
+        {
+            UpdateInfo();
         }
     }
 }

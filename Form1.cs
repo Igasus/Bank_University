@@ -22,7 +22,8 @@ namespace Bank_University
             InitializeComponent();
 
             SelectedBank = null;
-            UpdateBankList();
+
+            UpdateInfo();
         }
 
 
@@ -74,7 +75,7 @@ namespace Bank_University
 
         private void OpenBankMenu(Bank bank)
         {
-            BankMenuForm bankMenu = new BankMenuForm(SelectedBank, this);
+            BankMenuForm bankMenu = new BankMenuForm(SelectedBank);
             Hide();
             bankMenu.Show();
         }
@@ -111,12 +112,37 @@ namespace Bank_University
             UpdateButtons();
         }
 
+
+
         private void BankListBox_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (SelectedBank == null)
                 return;
 
             OpenBankMenu(SelectedBank);
+        }
+
+
+
+        public void UpdateInfo()
+        {
+            UpdateBankList();
+            DateButton.Text = Date.CurrentDate.ToString();
+        }
+
+
+
+        private void DateButton_Click(object sender, EventArgs e)
+        {
+            DateForm form = new DateForm();
+            form.Show();
+        }
+
+
+
+        private void DateTimer_Tick(object sender, EventArgs e)
+        {
+            UpdateInfo();
         }
     }
 }

@@ -75,6 +75,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DateForm.Designer.cs">
+      <DependentUpon>DateForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserAccountActionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserAccountActionsForm.Designer.cs">
+      <DependentUpon>UserAccountActionsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Bank.cs" />
     <Compile Include="BankMenuForm.cs">
       <SubType>Form</SubType>
@@ -128,6 +140,12 @@
     <Compile Include="LocalDepositListForm.Designer.cs">
       <DependentUpon>LocalDepositListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewDepositForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +164,12 @@
     <Compile Include="ProfileEditForm.Designer.cs">
       <DependentUpon>ProfileEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProfileForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProfileForm.Designer.cs">
+      <DependentUpon>ProfileForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterForm.cs">
@@ -162,6 +186,12 @@
     <Compile Include="UserListForm.Designer.cs">
       <DependentUpon>UserListForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DateForm.resx">
+      <DependentUpon>DateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserAccountActionsForm.resx">
+      <DependentUpon>UserAccountActionsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BankMenuForm.resx">
       <DependentUpon>BankMenuForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -186,6 +216,9 @@
     <EmbeddedResource Include="LocalDepositListForm.resx">
       <DependentUpon>LocalDepositListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewDepositForm.resx">
       <DependentUpon>NewDepositForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -194,6 +227,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ProfileEditForm.resx">
       <DependentUpon>ProfileEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProfileForm.resx">
+      <DependentUpon>ProfileForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.BankTitleLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.SearchTextBox = new System.Windows.Forms.TextBox();
@@ -43,6 +44,8 @@
             this.DepositsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.EditButton = new System.Windows.Forms.Button();
+            this.DateButton = new System.Windows.Forms.Button();
+            this.DateTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.UserGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -196,11 +199,29 @@
             this.EditButton.UseVisualStyleBackColor = true;
             this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
             // 
+            // DateButton
+            // 
+            this.DateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.DateButton.Location = new System.Drawing.Point(788, 9);
+            this.DateButton.Name = "DateButton";
+            this.DateButton.Size = new System.Drawing.Size(124, 31);
+            this.DateButton.TabIndex = 9;
+            this.DateButton.Text = "<Date>";
+            this.DateButton.UseVisualStyleBackColor = true;
+            this.DateButton.Click += new System.EventHandler(this.DateButton_Click);
+            // 
+            // DateTimer
+            // 
+            this.DateTimer.Enabled = true;
+            this.DateTimer.Interval = 1000;
+            this.DateTimer.Tick += new System.EventHandler(this.DateTimer_Tick);
+            // 
             // UserListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(924, 605);
+            this.Controls.Add(this.DateButton);
             this.Controls.Add(this.EditButton);
             this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.UserGridView);
@@ -213,8 +234,6 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "UserListForm";
             this.Text = "Bank users";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UserListForm_FormClosed);
-            this.Load += new System.EventHandler(this.UserListForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.UserGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -237,5 +256,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DepositsColumn;
         private System.Windows.Forms.Button DeleteButton;
         private System.Windows.Forms.Button EditButton;
+        private System.Windows.Forms.Button DateButton;
+        private System.Windows.Forms.Timer DateTimer;
     }
 }

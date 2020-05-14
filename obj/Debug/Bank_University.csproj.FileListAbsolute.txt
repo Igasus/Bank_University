@@ -38,3 +38,7 @@ C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\obj\Debug
 C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\obj\Debug\Bank_University.LocalDepositListForm.resources
 C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\obj\Debug\Bank_University.NewLocalDepositForm.resources
 C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\obj\Debug\Bank_University.LocalDepositForm.resources
+C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\obj\Debug\Bank_University.LoginForm.resources
+C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\obj\Debug\Bank_University.ProfileForm.resources
+C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\obj\Debug\Bank_University.UserAccountActionsForm.resources
+C:\Users\igasu\Desktop\Other\_Projects\Bank_University\Bank_University\obj\Debug\Bank_University.DateForm.resources

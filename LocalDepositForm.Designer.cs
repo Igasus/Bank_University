@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.FormTitleLabel = new System.Windows.Forms.Label();
             this.TitleTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -55,6 +56,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.UserAccountTextBox = new System.Windows.Forms.TextBox();
             this.CloseDepositButton = new System.Windows.Forms.Button();
+            this.DateButton = new System.Windows.Forms.Button();
+            this.DateTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // FormTitleLabel
@@ -316,11 +319,29 @@
             this.CloseDepositButton.UseVisualStyleBackColor = true;
             this.CloseDepositButton.Click += new System.EventHandler(this.CloseDepositButton_Click);
             // 
+            // DateButton
+            // 
+            this.DateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.DateButton.Location = new System.Drawing.Point(963, 12);
+            this.DateButton.Name = "DateButton";
+            this.DateButton.Size = new System.Drawing.Size(124, 31);
+            this.DateButton.TabIndex = 28;
+            this.DateButton.Text = "<Date>";
+            this.DateButton.UseVisualStyleBackColor = true;
+            this.DateButton.Click += new System.EventHandler(this.DateButton_Click);
+            // 
+            // DateTimer
+            // 
+            this.DateTimer.Enabled = true;
+            this.DateTimer.Interval = 1000;
+            this.DateTimer.Tick += new System.EventHandler(this.DateTimer_Tick);
+            // 
             // LocalDepositForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1099, 621);
+            this.Controls.Add(this.DateButton);
             this.Controls.Add(this.CloseDepositButton);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.UserAccountTextBox);
@@ -349,7 +370,6 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "LocalDepositForm";
             this.Text = "User\'s deposit";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LocalDepositForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -384,5 +404,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox UserAccountTextBox;
         private System.Windows.Forms.Button CloseDepositButton;
+        private System.Windows.Forms.Button DateButton;
+        private System.Windows.Forms.Timer DateTimer;
     }
 }

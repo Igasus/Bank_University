@@ -13,37 +13,41 @@ using Bank_Logic;
 
 namespace Bank_University
 {
-    public partial class RegisterForm : Form
+    public partial class LoginForm : Form
     {
-        public Bank Bank { get; private set; }
-        public string Username { get => UsernameTextBox.Text; }
-        public string Password { get => PasswordTextBox.Text; }
-        
+        private Bank _bank;
 
 
 
-        public RegisterForm()
+        public LoginForm()
         {
             InitializeComponent();
         }
 
 
 
-        public RegisterForm(Bank bank): this()
+        public LoginForm(Bank bank) : this()
         {
-            Bank = bank;
+            _bank = bank;
 
             UpdateInfo();
         }
 
 
 
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+
+
         private void UpdateSubmitButton()
         {
-            if (Username != "" && Password != "")
-                SubmitButton.Enabled = true;
-            else
+            if (UsernameTextBox.Text == "" || PasswordTextBox.Text == "")
                 SubmitButton.Enabled = false;
+            else
+                SubmitButton.Enabled = true;
         }
 
 
@@ -64,21 +68,18 @@ namespace Bank_University
 
         private void SubmitButton_Click(object sender, EventArgs e)
         {
-            try
+            string username = UsernameTextBox.Text;
+            string password = PasswordTextBox.Text;
+
+            User user = _bank.Login(username, password);
+            if (user == null)
             {
-                Bank.Register(Username, Password);
-                Close();
+                Program.ShowErrorMessageBox("Incorrect Username or password.");
+                return;
             }
-            catch (Exception exception)
-            {
-                Program.ShowErrorMessageBox(exception.Message);
-            }
-        }
 
-
-
-        private void CancelButton_Click(object sender, EventArgs e)
-        {
+            ProfileForm form = new ProfileForm(user);
+            form.Show();
             Close();
         }
 

@@ -15,7 +15,6 @@ namespace Bank_University
 {
     public partial class NewDepositForm : Form
     {
-        private Form _previousForm;
         public Bank Bank { get; private set; }
 
 
@@ -28,21 +27,11 @@ namespace Bank_University
 
 
 
-        public NewDepositForm(Bank bank, Form previousForm) : this()
+        public NewDepositForm(Bank bank) : this()
         {
-            _previousForm = previousForm;
             Bank = bank;
-        }
 
-
-
-        private void NewDepositForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            try
-            {
-                ((DepositListForm)_previousForm).UpdateInfo();
-            }
-            catch (Exception) { }
+            UpdateInfo();
         }
 
 
@@ -99,6 +88,28 @@ namespace Bank_University
         private void CancelButton_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+
+
+        public void UpdateInfo()
+        {
+            DateButton.Text = Date.CurrentDate.ToString();
+        }
+
+
+
+        private void DateButton_Click(object sender, EventArgs e)
+        {
+            DateForm form = new DateForm();
+            form.Show();
+        }
+
+
+
+        private void DateTimer_Tick(object sender, EventArgs e)
+        {
+            UpdateInfo();
         }
     }
 }

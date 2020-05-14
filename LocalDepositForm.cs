@@ -15,7 +15,6 @@ namespace Bank_University
 {
     public partial class LocalDepositForm : Form
     {
-        private Form _previousForm;
         private LocalDeposit _deposit;
 
 
@@ -27,21 +26,14 @@ namespace Bank_University
 
 
 
-        public LocalDepositForm(LocalDeposit deposit, Form previousForm) : this()
+        public LocalDepositForm(LocalDeposit deposit) : this()
         {
-            _previousForm = previousForm;
             _deposit = deposit;
-            
+
             FormTitleLabel.Text = $"{_deposit.User.Username}' deposit";
 
             UsernameTextBox.Text = _deposit.User.Username;
             TitleTextBox.Text = _deposit.Title;
-            
-            AnnualRateTextBox.Text = String.Format("{0:0.00}%", _deposit.AnnualRate * 100);
-            DurationTextBox.Text = $"{_deposit.Duration} months";
-            
-            OpenDateTextBox.Text = _deposit.OpenDate.ToString();
-            CloseDateTextBox.Text = _deposit.CloseDate.ToString();
 
             UpdateInfo();
         }
@@ -52,7 +44,8 @@ namespace Bank_University
         {
             HistoryListView.Items.Clear();
 
-            _deposit.History.ForEach(action => {
+            foreach (TransferAction action in _deposit.History)
+            {
                 string[] row = new string[]
                 {
                     action.Date.ToString(),
@@ -61,7 +54,7 @@ namespace Bank_University
                 };
                 ListViewItem item = new ListViewItem(row);
                 HistoryListView.Items.Add(item);
-            });
+            }
         }
 
 
@@ -71,7 +64,15 @@ namespace Bank_University
             UserAccountTextBox.Text = String.Format("{0:0.00}", _deposit.User.Account);
             DepositAccountTextBox.Text = String.Format("{0:0.00}", _deposit.Account);
 
+            AnnualRateTextBox.Text = String.Format("{0:0.00}%", _deposit.AnnualRate * 100);
+            DurationTextBox.Text = $"{_deposit.Duration} months";
+
+            OpenDateTextBox.Text = _deposit.OpenDate.ToString();
+            CloseDateTextBox.Text = _deposit.CloseDate.ToString();
+
             UpdateHistoryListView();
+
+            DateButton.Text = Date.CurrentDate.ToString();
         }
 
 
@@ -110,12 +111,6 @@ namespace Bank_University
 
         private void BackButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                ((LocalDepositListForm)_previousForm).UpdateInfo();
-            }
-            catch (Exception) { }
-
             Close();
         }
         
@@ -127,13 +122,19 @@ namespace Bank_University
             Close();
         }
 
-        private void LocalDepositForm_FormClosed(object sender, FormClosedEventArgs e)
+
+
+        private void DateButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                ((LocalDepositListForm)_previousForm).UpdateInfo();
-            }
-            catch (Exception) { }
+            DateForm form = new DateForm();
+            form.Show();
+        }
+
+
+
+        private void DateTimer_Tick(object sender, EventArgs e)
+        {
+            UpdateInfo();
         }
     }
 }

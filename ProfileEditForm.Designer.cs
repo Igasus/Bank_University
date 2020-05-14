@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -57,12 +58,14 @@
             this.label16 = new System.Windows.Forms.Label();
             this.DepositButton = new System.Windows.Forms.Button();
             this.SubmitButton = new System.Windows.Forms.Button();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.CloseButton = new System.Windows.Forms.Button();
             this.NewAccountTextBox = new System.Windows.Forms.TextBox();
             this.OldAccountTextBox = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
+            this.DateButton = new System.Windows.Forms.Button();
+            this.DateTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // label1
@@ -340,16 +343,16 @@
             this.SubmitButton.UseVisualStyleBackColor = true;
             this.SubmitButton.Click += new System.EventHandler(this.SubmitButton_Click);
             // 
-            // CancelButton
+            // CloseButton
             // 
-            this.CancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.CancelButton.Location = new System.Drawing.Point(487, 588);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(304, 49);
-            this.CancelButton.TabIndex = 30;
-            this.CancelButton.Text = "Cancel";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.CloseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.CloseButton.Location = new System.Drawing.Point(487, 588);
+            this.CloseButton.Name = "CloseButton";
+            this.CloseButton.Size = new System.Drawing.Size(304, 49);
+            this.CloseButton.TabIndex = 30;
+            this.CloseButton.Text = "Close";
+            this.CloseButton.UseVisualStyleBackColor = true;
+            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
             // NewAccountTextBox
             // 
@@ -398,17 +401,35 @@
             this.label20.TabIndex = 33;
             this.label20.Text = "Account";
             // 
+            // DateButton
+            // 
+            this.DateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.DateButton.Location = new System.Drawing.Point(667, 12);
+            this.DateButton.Name = "DateButton";
+            this.DateButton.Size = new System.Drawing.Size(124, 31);
+            this.DateButton.TabIndex = 38;
+            this.DateButton.Text = "<Date>";
+            this.DateButton.UseVisualStyleBackColor = true;
+            this.DateButton.Click += new System.EventHandler(this.DateButton_Click);
+            // 
+            // DateTimer
+            // 
+            this.DateTimer.Enabled = true;
+            this.DateTimer.Interval = 1000;
+            this.DateTimer.Tick += new System.EventHandler(this.DateTimer_Tick);
+            // 
             // ProfileEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(803, 649);
+            this.Controls.Add(this.DateButton);
             this.Controls.Add(this.NewAccountTextBox);
             this.Controls.Add(this.OldAccountTextBox);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.label20);
-            this.Controls.Add(this.CancelButton);
+            this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.SubmitButton);
             this.Controls.Add(this.DepositButton);
             this.Controls.Add(this.NewBirthDateTextBox);
@@ -442,7 +463,6 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ProfileEditForm";
             this.Text = "Profile Edit";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ProfileEditForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -479,11 +499,13 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Button DepositButton;
         private System.Windows.Forms.Button SubmitButton;
-        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button CloseButton;
         private System.Windows.Forms.TextBox NewAccountTextBox;
         private System.Windows.Forms.TextBox OldAccountTextBox;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Button DateButton;
+        private System.Windows.Forms.Timer DateTimer;
     }
 }
