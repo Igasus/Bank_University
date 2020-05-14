@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.CloseButton = new System.Windows.Forms.Button();
             this.SubmitButton = new System.Windows.Forms.Button();
             this.NewDurationTextBox = new System.Windows.Forms.TextBox();
             this.OldDurationTextBox = new System.Windows.Forms.TextBox();
@@ -52,16 +52,16 @@
             this.DateTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
-            // CancelButton
+            // CloseButton
             // 
-            this.CancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.CancelButton.Location = new System.Drawing.Point(642, 355);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(150, 49);
-            this.CancelButton.TabIndex = 67;
-            this.CancelButton.Text = "Cancel";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.CloseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.CloseButton.Location = new System.Drawing.Point(642, 355);
+            this.CloseButton.Name = "CloseButton";
+            this.CloseButton.Size = new System.Drawing.Size(150, 49);
+            this.CloseButton.TabIndex = 67;
+            this.CloseButton.Text = "Close";
+            this.CloseButton.UseVisualStyleBackColor = true;
+            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
             // SubmitButton
             // 
@@ -259,7 +259,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(804, 414);
             this.Controls.Add(this.DateButton);
-            this.Controls.Add(this.CancelButton);
+            this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.SubmitButton);
             this.Controls.Add(this.LocalDepositListButton);
             this.Controls.Add(this.NewDurationTextBox);
@@ -289,7 +289,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button CloseButton;
         private System.Windows.Forms.Button SubmitButton;
         private System.Windows.Forms.TextBox NewDurationTextBox;
         private System.Windows.Forms.TextBox OldDurationTextBox;

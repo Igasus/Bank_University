@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Bank_Serialization;
+using System.Text.Json;
 
 
 
@@ -132,6 +134,17 @@ namespace Bank_Logic
         {
             User.RemoveDeposit(this);
             ParentDeposit.RemoveLocalDeposit(this);
+        }
+
+
+
+        // Converts current object to json for serialization
+        public string Json()
+        {
+            SerializationLocalDeposit serializationLocalDeposit = new SerializationLocalDeposit(this);
+            string result = JsonSerializer.Serialize<SerializationLocalDeposit>(serializationLocalDeposit);
+
+            return result;
         }
 
 

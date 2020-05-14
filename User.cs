@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Bank_Serialization;
+using System.Text.Json;
 
 
 
@@ -232,6 +234,17 @@ namespace Bank_Logic
             result.AddRange(resultsByAccount);
             result.AddRange(resultsByOpenDate);
             result.AddRange(resultsByCloseDate);
+
+            return result;
+        }
+
+
+
+        // Converts current object to json for serialization
+        public string Json()
+        {
+            SerializationUser serializationUser = new SerializationUser(this);
+            string result = JsonSerializer.Serialize<SerializationUser>(serializationUser);
 
             return result;
         }

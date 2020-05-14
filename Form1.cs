@@ -31,6 +31,7 @@ namespace Bank_University
         private void BankListForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Date.StopCurrentDate();
+            Program.SaveData();
         }
 
 

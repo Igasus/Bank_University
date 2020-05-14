@@ -30,6 +30,7 @@ namespace Bank_University
         public DepositListForm(Bank bank) : this()
         {
             Bank = bank;
+            _currentDeposits = new List<Deposit>();
 
             BankTitleLabel.Text = $"{Bank.Title} deposits";
             ResetInfo();
@@ -37,8 +38,24 @@ namespace Bank_University
 
 
 
+        private bool AreDepositsAlreadyInGrid(List<Deposit> deposits)
+        {
+            if (_currentDeposits.Count != deposits.Count)
+                return false;
+
+            for (int i = 0; i < deposits.Count; i++)
+                if (!deposits[i].Equals(_currentDeposits[i]))
+                    return false;
+            return true;
+        }
+
+
+
         public void SetDepositGrid(List<Deposit> deposits)
         {
+            if (AreDepositsAlreadyInGrid(deposits))
+                return;
+
             DepositGridView.Rows.Clear();
             deposits.ForEach(deposit => {
                 string[] row = new string[]
@@ -51,7 +68,7 @@ namespace Bank_University
                 };
                 DepositGridView.Rows.Add(row);
             });
-            _currentDeposits = deposits;
+            _currentDeposits = new List<Deposit>(deposits);
         }
 
 

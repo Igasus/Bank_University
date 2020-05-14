@@ -17,7 +17,6 @@ namespace Bank_University
     {
         private User _user;
         private Deposit _deposit;
-        private List<LocalDeposit> _localDeposits;
         private List<LocalDeposit> _currentDeposits;
         public Bank Bank { get => Program.StartForm.SelectedBank; }
 
@@ -30,12 +29,11 @@ namespace Bank_University
 
 
 
-        public LocalDepositListForm(List<LocalDeposit> localDeposits,
-            User user = null, Deposit deposit = null) : this()
+        public LocalDepositListForm(User user = null, Deposit deposit = null) : this()
         {
             _user = user;
             _deposit = deposit;
-            _localDeposits = localDeposits;
+            _currentDeposits = new List<LocalDeposit>();
 
             if (_user != null)
                 TitleLabel.Text = $"{_user.Username}' deposits";
@@ -47,8 +45,24 @@ namespace Bank_University
 
 
 
+        private bool AreDepositsAlreadyInGrid(List<LocalDeposit> deposits)
+        {
+            if (_currentDeposits.Count != deposits.Count)
+                return false;
+
+            for (int i = 0; i < deposits.Count; i++)
+                if (!deposits[i].Equals(_currentDeposits[i]))
+                    return false;
+            return true;
+        }
+
+
+
         public void SetDepositGrid(List<LocalDeposit> deposits)
         {
+            if (AreDepositsAlreadyInGrid(deposits))
+                return;
+
             DepositGridView.Rows.Clear();
             deposits.ForEach(deposit => {
                 string[] row = new string[]
@@ -60,7 +74,7 @@ namespace Bank_University
                 };
                 DepositGridView.Rows.Add(row);
             });
-            _currentDeposits = deposits;
+            _currentDeposits = new List<LocalDeposit>(deposits);
         }
 
 
@@ -68,19 +82,25 @@ namespace Bank_University
         public void UpdateDepositGrid()
         {
             string toFind = SearchTextBox.Text;
+            
+            List<LocalDeposit> result = new List<LocalDeposit>();
+
             if (toFind != "")
             {
-                List<LocalDeposit> result = new List<LocalDeposit>();
-
                 if (_user != null)
                     result = _user.SearchLocalDeposits(toFind);
                 else if (_deposit != null)
                     result = _deposit.SearchLocalDeposits(toFind);
-
-                SetDepositGrid(result);
             }
             else
-                SetDepositGrid(_localDeposits);
+            {
+                if (_user != null)
+                    result = _user.Deposits;
+                else if (_deposit != null)
+                    result = _deposit.LocalDeposits;
+            }
+
+            SetDepositGrid(result);
         }
 
 

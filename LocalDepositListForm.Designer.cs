@@ -173,7 +173,7 @@
             // DateTimer
             // 
             this.DateTimer.Enabled = true;
-            this.DateTimer.Interval = 1000;
+            this.DateTimer.Interval = 250;
             this.DateTimer.Tick += new System.EventHandler(this.DateTimer_Tick);
             // 
             // LocalDepositListForm

@@ -1,5 +1,6 @@
 ﻿using System;
 using Bank_University;
+using System.Text.Json;
 
 
 
@@ -46,6 +47,14 @@ namespace Bank_Logic
 
                 _year = value;
             }
+        }
+
+
+
+        // Empty constructor for deserializer
+        public Date()
+        {
+            SetDate(1, 1, 1);
         }
 
 
@@ -169,6 +178,16 @@ namespace Bank_Logic
             _month = date.Month;
             _day = date.Day;
             FixDate();
+        }
+
+
+
+        // Converts current object to json for serialization
+        public string Json()
+        {
+            string result = JsonSerializer.Serialize<Date>(this);
+
+            return result;
         }
 
 

@@ -27,7 +27,7 @@ namespace Bank_University
         public UserListForm(Bank bank) : this()
         {
             Bank = bank;
-            _currentUsers = Bank.Users;
+            _currentUsers = new List<User>();
             BankTitleLabel.Text = Bank.Title + " users";
 
             ResetInfo();
@@ -35,8 +35,24 @@ namespace Bank_University
 
 
 
+        private bool IsGridItemList(List<User> users)
+        {
+            if (_currentUsers.Count != users.Count)
+                return false;
+
+            for (int i = 0; i < users.Count; i++)
+                if (!users[i].Equals(_currentUsers[i]))
+                    return false;
+            return true;
+        }
+
+
+
         public void SetUserGrid(List<User> users)
         {
+            if (IsGridItemList(users))
+                return;
+            
             UserGridView.Rows.Clear();
             users.ForEach(user => {
                 string[] row = new string[]
@@ -51,7 +67,7 @@ namespace Bank_University
                 };
                 UserGridView.Rows.Add(row);
             });
-            _currentUsers = users;
+            _currentUsers = new List<User>(users);
         }
 
 
@@ -88,7 +104,6 @@ namespace Bank_University
         private void SearchTextBox_TextChanged(object sender, EventArgs e)
         {
             DeleteButton.Enabled = false;
-            
         }
 
 

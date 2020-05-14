@@ -51,7 +51,7 @@ namespace Bank_University
 
         private void OpenDepositListButton_Click(object sender, EventArgs e)
         {
-            LocalDepositListForm form = new LocalDepositListForm(_user.Deposits, user: _user);
+            LocalDepositListForm form = new LocalDepositListForm(user: _user);
             form.ShowDialog();
         }
 

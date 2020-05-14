@@ -1,4 +1,9 @@
-﻿namespace Bank_Logic
+﻿using Bank_Serialization;
+using System.Text.Json;
+
+
+
+namespace Bank_Logic
 {
     // Enum for TransferActionClass
     public enum TransferType
@@ -47,6 +52,17 @@
                     result = "DEPOSIT";
                     break;
             }
+
+            return result;
+        }
+
+
+
+        // Converts current object to json for serialization
+        public string Json()
+        {
+            SerializationTransferAction serializationTransferAction = new SerializationTransferAction(this);
+            string result = JsonSerializer.Serialize<SerializationTransferAction>(serializationTransferAction);
 
             return result;
         }

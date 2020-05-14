@@ -41,7 +41,7 @@ namespace Bank_University
 
         private void LocalDepositListButton_Click(object sender, EventArgs e)
         {
-            LocalDepositListForm form = new LocalDepositListForm(_deposit.LocalDeposits, deposit: _deposit);
+            LocalDepositListForm form = new LocalDepositListForm(deposit: _deposit);
             form.ShowDialog();
         }
 
@@ -54,8 +54,6 @@ namespace Bank_University
                 _deposit.Title = NewTitleTextBox.Text;
                 _deposit.AnnualRate = Convert.ToDouble(NewAnnualRateTextBox.Text) / 100;
                 _deposit.Duration = Convert.ToInt32(NewDurationTextBox.Text);
-
-                Close();
             }
             catch (Exception exception)
             {
@@ -76,13 +74,6 @@ namespace Bank_University
 
 
 
-        private void CancelButton_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-
-
         private void DateButton_Click(object sender, EventArgs e)
         {
             DateForm form = new DateForm();
@@ -94,6 +85,13 @@ namespace Bank_University
         private void DateTimer_Tick(object sender, EventArgs e)
         {
             UpdateInfo();
+        }
+
+
+
+        private void CloseButton_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
