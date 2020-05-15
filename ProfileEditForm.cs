@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Bank_Logic;
 
@@ -26,10 +19,11 @@ namespace Bank_University
 
 
 
-        public ProfileEditForm(User user) : this()
+        public ProfileEditForm(User user, bool newAccountTextBoxEnabled = true) : this()
         {
             _user = user;
 
+            NewAccountTextBox.Enabled = newAccountTextBoxEnabled;
             NewUsernameTextBox.Text = _user.Username;
             NewPasswordTextBox.Text = _user.Password;
             NewNameTextBox.Text = _user.Name;

@@ -46,7 +46,7 @@
             this.DurationTextBox = new System.Windows.Forms.TextBox();
             this.WithdrawButton = new System.Windows.Forms.Button();
             this.ReplenishButton = new System.Windows.Forms.Button();
-            this.BackButton = new System.Windows.Forms.Button();
+            this.CloseButton = new System.Windows.Forms.Button();
             this.TransferMoneyTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.HistoryListView = new System.Windows.Forms.ListView();
@@ -228,16 +228,16 @@
             this.ReplenishButton.UseVisualStyleBackColor = true;
             this.ReplenishButton.Click += new System.EventHandler(this.ReplenishButton_Click);
             // 
-            // BackButton
+            // CloseButton
             // 
-            this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.BackButton.Location = new System.Drawing.Point(709, 554);
-            this.BackButton.Name = "BackButton";
-            this.BackButton.Size = new System.Drawing.Size(378, 48);
-            this.BackButton.TabIndex = 19;
-            this.BackButton.Text = "<-- Back";
-            this.BackButton.UseVisualStyleBackColor = true;
-            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+            this.CloseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.CloseButton.Location = new System.Drawing.Point(709, 554);
+            this.CloseButton.Name = "CloseButton";
+            this.CloseButton.Size = new System.Drawing.Size(378, 48);
+            this.CloseButton.TabIndex = 19;
+            this.CloseButton.Text = "Close";
+            this.CloseButton.UseVisualStyleBackColor = true;
+            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
             // TransferMoneyTextBox
             // 
@@ -348,7 +348,7 @@
             this.Controls.Add(this.HistoryListView);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TransferMoneyTextBox);
-            this.Controls.Add(this.BackButton);
+            this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.ReplenishButton);
             this.Controls.Add(this.WithdrawButton);
             this.Controls.Add(this.label8);
@@ -394,7 +394,7 @@
         private System.Windows.Forms.TextBox DurationTextBox;
         private System.Windows.Forms.Button WithdrawButton;
         private System.Windows.Forms.Button ReplenishButton;
-        private System.Windows.Forms.Button BackButton;
+        private System.Windows.Forms.Button CloseButton;
         private System.Windows.Forms.TextBox TransferMoneyTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListView HistoryListView;

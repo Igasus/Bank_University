@@ -36,7 +36,7 @@
             this.DurationColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalAccountColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LocalDepositsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BackButton = new System.Windows.Forms.Button();
+            this.CloseButton = new System.Windows.Forms.Button();
             this.NewDepositButton = new System.Windows.Forms.Button();
             this.SearchTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -115,16 +115,16 @@
             this.LocalDepositsColumn.ReadOnly = true;
             this.LocalDepositsColumn.Width = 145;
             // 
-            // BackButton
+            // CloseButton
             // 
-            this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.BackButton.Location = new System.Drawing.Point(762, 554);
-            this.BackButton.Name = "BackButton";
-            this.BackButton.Size = new System.Drawing.Size(150, 40);
-            this.BackButton.TabIndex = 12;
-            this.BackButton.Text = "<-- Back";
-            this.BackButton.UseVisualStyleBackColor = true;
-            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+            this.CloseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.CloseButton.Location = new System.Drawing.Point(762, 554);
+            this.CloseButton.Name = "CloseButton";
+            this.CloseButton.Size = new System.Drawing.Size(150, 40);
+            this.CloseButton.TabIndex = 12;
+            this.CloseButton.Text = "Close";
+            this.CloseButton.UseVisualStyleBackColor = true;
+            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
             // NewDepositButton
             // 
@@ -207,7 +207,7 @@
             this.Controls.Add(this.EditButton);
             this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.DepositGridView);
-            this.Controls.Add(this.BackButton);
+            this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.NewDepositButton);
             this.Controls.Add(this.SearchTextBox);
             this.Controls.Add(this.label2);
@@ -226,7 +226,7 @@
 
         private System.Windows.Forms.Button DeleteButton;
         private System.Windows.Forms.DataGridView DepositGridView;
-        private System.Windows.Forms.Button BackButton;
+        private System.Windows.Forms.Button CloseButton;
         private System.Windows.Forms.Button NewDepositButton;
         private System.Windows.Forms.TextBox SearchTextBox;
         private System.Windows.Forms.Label label2;

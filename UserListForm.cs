@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Bank_Logic;
 
@@ -90,13 +84,6 @@ namespace Bank_University
         {
             RegisterForm registerForm = new RegisterForm(Bank);
             registerForm.ShowDialog();
-        }
-
-
-
-        private void BackButton_Click(object sender, EventArgs e)
-        {
-            Close();
         }
 
 
@@ -197,6 +184,13 @@ namespace Bank_University
         private void DateTimer_Tick(object sender, EventArgs e)
         {
             UpdateInfo();
+        }
+
+
+
+        private void CloseButton_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

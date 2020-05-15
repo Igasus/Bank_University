@@ -35,7 +35,7 @@
             this.UsernameTextBox = new System.Windows.Forms.TextBox();
             this.PasswordTextBox = new System.Windows.Forms.TextBox();
             this.SubmitButton = new System.Windows.Forms.Button();
-            this.BackButton = new System.Windows.Forms.Button();
+            this.CancelButton = new System.Windows.Forms.Button();
             this.DateButton = new System.Windows.Forms.Button();
             this.DateTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
@@ -100,16 +100,16 @@
             this.SubmitButton.UseVisualStyleBackColor = true;
             this.SubmitButton.Click += new System.EventHandler(this.SubmitButton_Click);
             // 
-            // BackButton
+            // CancelButton
             // 
-            this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.BackButton.Location = new System.Drawing.Point(719, 403);
-            this.BackButton.Name = "BackButton";
-            this.BackButton.Size = new System.Drawing.Size(137, 61);
-            this.BackButton.TabIndex = 6;
-            this.BackButton.Text = "<-- Back";
-            this.BackButton.UseVisualStyleBackColor = true;
-            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+            this.CancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.CancelButton.Location = new System.Drawing.Point(719, 403);
+            this.CancelButton.Name = "CancelButton";
+            this.CancelButton.Size = new System.Drawing.Size(137, 61);
+            this.CancelButton.TabIndex = 6;
+            this.CancelButton.Text = "Cancel";
+            this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // DateButton
             // 
@@ -134,7 +134,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(888, 501);
             this.Controls.Add(this.DateButton);
-            this.Controls.Add(this.BackButton);
+            this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.SubmitButton);
             this.Controls.Add(this.PasswordTextBox);
             this.Controls.Add(this.UsernameTextBox);
@@ -158,7 +158,7 @@
         private System.Windows.Forms.TextBox UsernameTextBox;
         private System.Windows.Forms.TextBox PasswordTextBox;
         private System.Windows.Forms.Button SubmitButton;
-        private System.Windows.Forms.Button BackButton;
+        private System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.Button DateButton;
         private System.Windows.Forms.Timer DateTimer;
     }

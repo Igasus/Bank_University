@@ -33,7 +33,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.SearchTextBox = new System.Windows.Forms.TextBox();
             this.RegisterButton = new System.Windows.Forms.Button();
-            this.BackButton = new System.Windows.Forms.Button();
+            this.CloseButton = new System.Windows.Forms.Button();
             this.UserGridView = new System.Windows.Forms.DataGridView();
             this.UsernameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PasswordColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -92,16 +92,16 @@
             this.RegisterButton.UseVisualStyleBackColor = true;
             this.RegisterButton.Click += new System.EventHandler(this.RegisterButton_Click);
             // 
-            // BackButton
+            // CloseButton
             // 
-            this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.BackButton.Location = new System.Drawing.Point(762, 553);
-            this.BackButton.Name = "BackButton";
-            this.BackButton.Size = new System.Drawing.Size(150, 40);
-            this.BackButton.TabIndex = 5;
-            this.BackButton.Text = "<-- Back";
-            this.BackButton.UseVisualStyleBackColor = true;
-            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+            this.CloseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.CloseButton.Location = new System.Drawing.Point(762, 553);
+            this.CloseButton.Name = "CloseButton";
+            this.CloseButton.Size = new System.Drawing.Size(150, 40);
+            this.CloseButton.TabIndex = 5;
+            this.CloseButton.Text = "Close";
+            this.CloseButton.UseVisualStyleBackColor = true;
+            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
             // UserGridView
             // 
@@ -225,7 +225,7 @@
             this.Controls.Add(this.EditButton);
             this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.UserGridView);
-            this.Controls.Add(this.BackButton);
+            this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.RegisterButton);
             this.Controls.Add(this.SearchTextBox);
             this.Controls.Add(this.label2);
@@ -245,7 +245,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox SearchTextBox;
         private System.Windows.Forms.Button RegisterButton;
-        private System.Windows.Forms.Button BackButton;
+        private System.Windows.Forms.Button CloseButton;
         private System.Windows.Forms.DataGridView UserGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn UsernameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn PasswordColumn;
